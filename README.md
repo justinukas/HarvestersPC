@@ -1,1 +1,1 @@
-pc version of [Harvesters](github.com/justinukas/Harvesters)
+pc version of [Harvesters](https://www.github.com/justinukas/Harvesters)
