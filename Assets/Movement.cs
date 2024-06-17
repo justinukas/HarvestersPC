@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
     private float gravity;
     void Update()
     {
-        gravity -= 10 * Time.deltaTime;
+        gravity -= 9.81f * Time.deltaTime;
         x = Input.GetAxisRaw("Horizontal");
         z = Input.GetAxisRaw("Vertical");
         Vector3 move = transform.right * x * playerSpeed * Time.deltaTime + transform.forward * z * playerSpeed * Time.deltaTime + transform.up * gravity;

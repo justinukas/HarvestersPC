@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6600457890622479368}
   - component: {fileID: 7234507085153822088}
   - component: {fileID: 3487583087065932302}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: xPNG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6687335714873974901}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 2000889072542121638}
   - component: {fileID: 2575063465547955920}
   - component: {fileID: 2150899927632442693}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: xNr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 3706585050698434958}
   - component: {fileID: 5582077945025511065}
   - component: {fileID: 7922528288570848905}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 7737631772970096136}
   - component: {fileID: 6872280556922948892}
   - component: {fileID: 1660101238388883832}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -511,7 +511,7 @@ GameObject:
   - component: {fileID: 3865377742222853311}
   - component: {fileID: 3714647308184166115}
   - component: {fileID: 2863309395905461261}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Wheat Nr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -590,7 +590,7 @@ GameObject:
   - component: {fileID: 2186364704661654494}
   - component: {fileID: 5305924821545424381}
   - component: {fileID: 4857582634088315811}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: WheatPNG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -665,7 +665,7 @@ GameObject:
   - component: {fileID: 7564754783940048067}
   - component: {fileID: 3606294746503360969}
   - component: {fileID: 4304114110173920162}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: CarrotPNG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -740,7 +740,7 @@ GameObject:
   - component: {fileID: 7122261965177718790}
   - component: {fileID: 784538673314095451}
   - component: {fileID: 2243374544058342169}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Carrot Nr
   m_TagString: Untagged
   m_Icon: {fileID: 0}

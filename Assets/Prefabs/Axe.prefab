@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6397543163881253186}
   - component: {fileID: 5967280467082604057}
   - component: {fileID: 3706967994607717853}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 3323420211034913457}
   - component: {fileID: 3194438176688938960}
   - component: {fileID: 2124969175844112984}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5012,7 +5012,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8824653162210471893}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Attachment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5046,7 +5046,7 @@ GameObject:
   - component: {fileID: 6299698145641497286}
   - component: {fileID: 8189706137528346983}
   - component: {fileID: 7589770442404480991}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5153,7 +5153,7 @@ GameObject:
   - component: {fileID: 5420073613409007186}
   - component: {fileID: 7053052119567403672}
   - component: {fileID: 5594442260727580888}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

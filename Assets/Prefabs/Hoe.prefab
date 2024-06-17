@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5115958255763338206}
   - component: {fileID: 3447221597161003052}
   - component: {fileID: 8238290140075891308}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 7489306575970051664}
   - component: {fileID: 1114322317071208947}
   - component: {fileID: 5712461480542507373}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hoe Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8715292356115684994}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Second Attachment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 1142633262151792326}
   - component: {fileID: 5274001318632850884}
   - component: {fileID: 8256654725895250792}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Head Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 916884987635119746}
   - component: {fileID: 2619069102355471459}
   - component: {fileID: 2852941644898551833}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hoe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -436,7 +436,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6616217725895599899}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: First Attachment
   m_TagString: Untagged
   m_Icon: {fileID: 0}

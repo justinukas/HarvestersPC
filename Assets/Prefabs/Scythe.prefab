@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5373633874335311669}
   - component: {fileID: 7517356649069584576}
   - component: {fileID: 8116990990369039330}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Scythe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 6292833298852666481}
   - component: {fileID: 2966905320776472676}
   - component: {fileID: 985072215769929574}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 6254343481857136299}
   - component: {fileID: 4269214577491744815}
   - component: {fileID: 8120160224107028608}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Handle1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8581087185794781897}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Second Attachment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +434,7 @@ GameObject:
   - component: {fileID: 1123315385846342185}
   - component: {fileID: 2067317185751160259}
   - component: {fileID: 5181081920077602609}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -538,7 +538,7 @@ GameObject:
   - component: {fileID: 2382292315696513181}
   - component: {fileID: 5730133379158514962}
   - component: {fileID: 4132525271406656840}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -622,7 +622,7 @@ GameObject:
   - component: {fileID: 8519944163203346047}
   - component: {fileID: 675077368973797035}
   - component: {fileID: 4925676296350669980}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Handle2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -729,7 +729,7 @@ GameObject:
   - component: {fileID: 2117431416610104556}
   - component: {fileID: 9165511912500540597}
   - component: {fileID: 710244570349073727}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -831,7 +831,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 768166781238606628}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: First Attachment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -865,7 +865,7 @@ GameObject:
   - component: {fileID: 493088643008208086}
   - component: {fileID: 2222156096897902508}
   - component: {fileID: 8039500452625744921}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
