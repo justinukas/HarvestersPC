@@ -13,7 +13,7 @@ public class WheatHarvest : MonoBehaviour
 
         foreach (ContactPoint contactPoint in collider.contacts) // this foreach is for checking for the correct local collider, the head of the scythe
         {
-            if (collider.gameObject.CompareTag("WheatSmall") && inventoryScript.bagIsOpen == true && growthScript.isHarvestable == true && contactPoint.thisCollider.gameObject.name == "Head" && itemInteractionsScript.isSwingingScythe == true)
+            if (collider.gameObject.CompareTag("WheatSmall") && inventoryScript.bagIsOpen == true && growthScript.isHarvestable == true && contactPoint.thisCollider.gameObject.name == "Head" && itemInteractionsScript.isSwinging == true)
             {
                 collider.gameObject.tag = "HarvestedWheat";
                 collider.gameObject.GetComponent<Rigidbody>().isKinematic = false;

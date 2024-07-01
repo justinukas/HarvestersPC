@@ -18,7 +18,7 @@ public class MouseLook : MonoBehaviour
         Camera.main.transform.localRotation = Quaternion.Euler(rotation.x * mouseSpeed, 0, 0);
 
 
-        // curse lock toggle
+        // cursor lock toggle
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (locked == true && cd >= 0.2f)
