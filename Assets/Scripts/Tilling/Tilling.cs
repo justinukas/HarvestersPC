@@ -2,11 +2,6 @@ using UnityEngine;
 
 public class Tilling : MonoBehaviour
 {
-    private void Start()
-    {
-        gameObject.GetComponent<Tilling>().enabled = false;
-    }
-
     private float cooldown = 0.25f;
     private void Update()
     {
@@ -20,7 +15,9 @@ public class Tilling : MonoBehaviour
     {
         foreach (ContactPoint contactPoint in collider.contacts) // this foreach is for checking if the loclcollider colliding is the correct one
         {
-            if (collider.gameObject.CompareTag("Dirt") && cooldown <= 0 && gameObject.GetComponent<Tilling>().enabled == true /* <- this enables when object is grabbed */ && contactPoint.thisCollider.gameObject.name == "Head")
+            if (collider.gameObject.CompareTag("Dirt") && cooldown <= 0 && GameObject.Find("Player").GetComponent<ItemInteractions>().isSwinging == true 
+                && contactPoint.thisCollider.gameObject.name == "Head")
+
             {
                 TillCounter tillCounter = collider.gameObject.GetComponent<TillCounter>();
                 tillCounter.timesTilled += 1;
