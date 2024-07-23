@@ -1,6 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+
+// if it aint broke don't fix it
 public class Foggy : MonoBehaviour 
 {
     float r;
@@ -40,11 +41,11 @@ public class Foggy : MonoBehaviour
 
         if (playerCollided == false)
         {
-            if (RenderSettings.fogDensity >= 0.003f)
+            if (RenderSettings.fogDensity >= 0.006f)
             {
                 RenderSettings.fogDensity -= Time.deltaTime / 8;
             }
-            if (RenderSettings.fogDensity <= 0.003f)
+            if (RenderSettings.fogDensity <= 0.006f)
             {
                 RenderSettings.fogDensity += Time.deltaTime / 8;
             }
