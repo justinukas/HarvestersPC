@@ -93,10 +93,10 @@ AnimatorStateMachine:
     m_Position: {x: 502, y: 54, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3577341665329299902}
-    m_Position: {x: 800, y: 50, z: 0}
+    m_Position: {x: 770, y: 50, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7755685658790352118}
-    m_Position: {x: 800, y: 130, z: 0}
+    m_Position: {x: 770, y: 130, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -185,7 +185,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New State
+  m_Name: DefaultState
   m_Speed: 0
   m_CycleOffset: 0
   m_Transitions: []
