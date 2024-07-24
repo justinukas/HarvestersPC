@@ -2,25 +2,26 @@ using UnityEngine;
 
 public class ItemInteractions : MonoBehaviour
 {
+
     public bool isSwinging = false;
 
     // object distinguishing
-    private string currentItem = "null";
-    private GameObject grabbedObject; // gameobject that the raycast hit
+    public string currentItem = "null";
+    public GameObject grabbedObject;
 
     // transform for default tool position
     public Transform defaultToolPosition;
 
     private void Update()
     {
-        ItemInteractionCheck();
-        ItemDropCheck();
+        ItemRaycast();
+        ItemDrop();
         ItemPositionAndRotation();
-        ItemSwing();
+        ItemUse();
     }
 
     // checks for raycast collision within 1.5 units and in front of camera on the press of E
-    private void ItemInteractionCheck()
+    private void ItemRaycast()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -28,11 +29,10 @@ public class ItemInteractions : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, 1.5f, 1 << 6 /* takes 6th (grabbables) layermask */) && currentItem == "null")
             {
                 grabbedObject = hit.collider.gameObject;
-                string itemName = grabbedObject.name;
 
-                if (itemName == "Scythe" || itemName == "Axe" || itemName == "Hoe")
+                if (grabbedObject.name == "Scythe" || grabbedObject.name == "Axe" || grabbedObject.name == "Hoe" || grabbedObject.name == "Bag")
                 {
-                    currentItem = itemName;
+                    currentItem = grabbedObject.name;
 
                     grabbedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition; // lock rigidbody from moving
                 }
@@ -40,13 +40,13 @@ public class ItemInteractions : MonoBehaviour
         }
     }
 
-    private void ItemDropCheck()
+    // drops equipped item
+    private void ItemDrop()
     {
-        // drops equipped item
         if (Input.GetKeyDown(KeyCode.R) && currentItem != "null")
         {
-            grabbedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             grabbedObject.transform.Find(currentItem).GetComponent<Animator>().Play("DefaultState");
+            grabbedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             isSwinging = false;
             currentItem = "null";
             grabbedObject = null;
@@ -59,39 +59,31 @@ public class ItemInteractions : MonoBehaviour
 
         Vector3 offset = Vector3.zero;
         
-        // set offsets
+        // set offsets & rotations
         switch (currentItem)
         {
             case "Scythe":
                 offset = new Vector3(0, 0, 0);
-                break;
-            case "Axe":
-                offset = new Vector3(0, 0, 0);
-                break;
-            case "Hoe":
-                offset = new Vector3(0, 0, 0);
-                break;
-        }
-        defaultToolPosition.position = defaultToolPosition.position + offset;
-        grabbedObject.transform.position = defaultToolPosition.position;
+                grabbedObject.transform.rotation = defaultToolPosition.rotation * Quaternion.Euler(-90, 180, 90); break;
 
-        // set rotations
-        switch (currentItem)
-        {
-            case "Scythe":
-                grabbedObject.gameObject.transform.rotation = defaultToolPosition.rotation * Quaternion.Euler(-90, 180, 90);
-                break;
             case "Axe":
-                grabbedObject.gameObject.transform.rotation = defaultToolPosition.rotation;
-                break;
+                offset = new Vector3(0, 0, 0);
+                grabbedObject.transform.rotation = defaultToolPosition.rotation; break;
+
             case "Hoe":
-                grabbedObject.gameObject.transform.rotation = defaultToolPosition.rotation * Quaternion.Euler(0, -90, 0);
-                break;
+                offset = new Vector3(0, 0, 0); 
+                grabbedObject.transform.rotation = defaultToolPosition.rotation * Quaternion.Euler(0, -90, 0); break;
+
+            case "Bag":
+                offset = new Vector3(0, 0, 0);
+                grabbedObject.transform.rotation = defaultToolPosition.rotation * Quaternion.Euler(-90, 180, 180); break;
+
         }
+        grabbedObject.transform.position = defaultToolPosition.position + offset;
+
     }
 
-
-    private void ItemSwing()
+    private void ItemUse()
     {
         if (currentItem == "null" || grabbedObject == null) return;
 
@@ -105,16 +97,16 @@ public class ItemInteractions : MonoBehaviour
                     currentAnimator.Play($"{currentItem} Swing");
                 }
             }
-            if (currentItem == "Bag")
+            else if (currentItem == "Bag")
             {
-                // do stuff
+               if (currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("Charge Up Bag Throw") == false && GameObject.Find("Throwing Charge Bar").transform.Find("Canvas").GetComponent<CanvasGroup>().alpha == 1)
+                {
+                    currentAnimator.Play("Charge Up Bag Throw");
+                }
             }
         }
 
         if (currentItem == "Scythe" || currentItem == "Axe" || currentItem == "Hoe")
         { isSwinging = currentAnimator.GetCurrentAnimatorStateInfo(0).IsName($"{currentItem} Swing"); }
-
-        if (currentItem == "Bag")
-        { /*play anim */}
     }
 }
