@@ -15,7 +15,7 @@ public class Tilling : MonoBehaviour
     {
         foreach (ContactPoint contactPoint in collider.contacts) // this foreach is for checking if the loclcollider colliding is the correct one
         {
-            if (collider.gameObject.CompareTag("Dirt") && cooldown <= 0 && GameObject.Find("Player").GetComponent<ItemInteractions>().isSwinging == true 
+            if (collider.gameObject.CompareTag("Dirt") && cooldown <= 0 && GameObject.Find("Player").GetComponent<ToolInteractions>().isSwinging == true 
                 && contactPoint.thisCollider.gameObject.name == "Head")
 
             {
@@ -26,7 +26,8 @@ public class Tilling : MonoBehaviour
 
                 Transform grassTransform = collider.gameObject.transform;
 
-                ParticleSystem dirtParticles = Instantiate(ParticleSystem, new Vector3(grassTransform.position.x, grassTransform.position.y + 0.67f, grassTransform.transform.position.z), Quaternion.Euler(new Vector3(-90, 0, 0)));
+                ParticleSystem dirtParticles = Instantiate(ParticleSystem, new Vector3(grassTransform.position.x, grassTransform.position.y + 0.67f, grassTransform.transform.position.z), 
+                    Quaternion.Euler(new Vector3(-90, 0, 0)));
                 dirtParticles.Emit(8);
                 dirtParticles.Stop();
 

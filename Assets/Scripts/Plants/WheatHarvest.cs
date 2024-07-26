@@ -2,27 +2,27 @@ using UnityEngine;
 
 public class WheatHarvest : MonoBehaviour
 {
-    public GameObject OpenBag;
+    [SerializeField] BagInventory BagInventory;
+    [SerializeField] ToolInteractions ToolInteractions;
 
     private void OnCollisionEnter(Collision collider)
     {
-        WheatDestruction destructionScript = collider.gameObject.GetComponent<WheatDestruction>();
-        WheatGrowth growthScript = collider.gameObject.GetComponent<WheatGrowth>();
-        BagInventory inventoryScript = GameObject.Find("Bag").GetComponent<BagInventory>();
-        ItemInteractions itemInteractionsScript = GameObject.Find("Player").GetComponent<ItemInteractions>();
-
         foreach (ContactPoint contactPoint in collider.contacts) // this foreach is for checking for the correct local collider, the head of the scythe
         {
-            if (collider.gameObject.CompareTag("WheatSmall") && inventoryScript.bagIsOpen == true && growthScript.isHarvestable == true && contactPoint.thisCollider.gameObject.name == "Head" && itemInteractionsScript.isSwinging == true)
+            WheatDestruction WheatDestruction = contactPoint.otherCollider.gameObject.GetComponent<WheatDestruction>();
+            WheatGrowth WheatGrowth = contactPoint.otherCollider.gameObject.GetComponent<WheatGrowth>();
+
+            if (collider.gameObject.CompareTag("WheatSmall") && contactPoint.thisCollider.gameObject.name == "Head" && BagInventory.bagIsOpen == true && WheatGrowth.isHarvestable == true && ToolInteractions.isSwinging == true)
             {
                 collider.gameObject.tag = "HarvestedWheat";
                 collider.gameObject.GetComponent<Rigidbody>().isKinematic = false;
 
                 gameObject.GetComponent<AudioSource>().Play();
 
-                inventoryScript.WheatCollection();
-                destructionScript.DestructionInitiator();
+                BagInventory.WheatCollection();
+                WheatDestruction.InvokeWheatDestruction();
             }
         }
     }
 }
+ 

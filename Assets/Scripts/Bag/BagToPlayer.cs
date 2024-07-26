@@ -4,10 +4,10 @@ public class BagToPlayer : MonoBehaviour
 {
     public bool move;
 
-    public Transform player;
-    public Transform bag;
+    [SerializeField] private Transform player;
+    [SerializeField] private Transform bag;
 
-    private float travelTime = 10f;
+    private float travelTime;
 
     private float speed = 0.25f; // must be a value from 0f to 1f
 
@@ -17,6 +17,8 @@ public class BagToPlayer : MonoBehaviour
     {
         move = true;
         startTime = Time.time;
+        travelTime = 10f;
+        speed = 0.25f;
     }
 
     void Update()
@@ -29,7 +31,7 @@ public class BagToPlayer : MonoBehaviour
 
             Vector3 bagCenter = bag.position - center;
 
-            Vector3 playerCenter = player.position - center;
+            Vector3 playerCenter = player.position + (player.forward * 0.2f) - center;
 
             float fracComplete = (Time.time - startTime) / travelTime;
 
@@ -38,6 +40,12 @@ public class BagToPlayer : MonoBehaviour
             bag.position += center;
 
         }
+        if (Vector3.Distance(bag.position, player.position) < 5 && move == true)
+        {
+            gameObject.GetComponent<Rigidbody>().angularDrag = 2;
+            gameObject.GetComponent<Rigidbody>().drag = 2;
+        }
+
         if (Vector3.Distance(bag.position, player.position) < 1)
         {
             move = false;

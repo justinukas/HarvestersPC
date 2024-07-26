@@ -2,32 +2,28 @@ using UnityEngine;
 
 public class Selling : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collider)
+    [SerializeField] BagInventory BagInventory;
+    [SerializeField] MoneyCounter MoneyCounter;
+    [SerializeField] BagToPlayer BagToPlayer;
+
+    private void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.tag == "Closed Bag" || collider.gameObject.tag == "Open Bag")
+        if (collider.gameObject.CompareTag("Closed Bag") || collider.gameObject.CompareTag("Open Bag"))
         {
-            BagInventory inventoryScript = collider.gameObject.GetComponent<BagInventory>();
-            MoneyCounter moneyCounterScript = GameObject.Find("MoneyNr").GetComponent<MoneyCounter>();
-            BagToPlayer bagToPlayerScript = collider.gameObject.GetComponent<BagToPlayer>();
 
-            if (collider.gameObject.tag == "Closed Bag")
+            if (collider.gameObject.CompareTag("Closed Bag"))
             {
-                moneyCounterScript.moneyNr += inventoryScript.value;
+                MoneyCounter.moneyNr += BagInventory.value;
 
-                inventoryScript.Sell();
-                bagToPlayerScript.StartMoving();
+                BagInventory.ResetCounters();
+                BagToPlayer.StartMoving();
                 Leave();
             }
 
-            if (collider.gameObject.tag == "Open Bag")
+            if (collider.gameObject.CompareTag("Open Bag"))
             {
-                bagToPlayerScript.StartMoving();
+                BagToPlayer.StartMoving();
             }
-        }
-        
-        if (collider.gameObject.tag != "Closed Bag" && collider.gameObject.tag != "Open Bag")
-        {
-            collider.gameObject.transform.position = new Vector3(114f, 3f, 38f);
         }
     }
 
@@ -35,5 +31,17 @@ public class Selling : MonoBehaviour
     {
         Animator boatAnimator = gameObject.transform.parent.GetComponent<Animator>();
         boatAnimator.SetTrigger("triggerLeave");
+    }
+
+    private void Update()
+    {
+        if (BagToPlayer.move == true)
+        {
+            gameObject.GetComponent<BoxCollider>().enabled = false;
+        }
+        else if (BagToPlayer.move == false)
+        {
+            gameObject.GetComponent<BoxCollider>().enabled = true;
+        }
     }
 }

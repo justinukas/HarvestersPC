@@ -2,29 +2,29 @@ using UnityEngine;
 
 public class BagWaterInteraction : MonoBehaviour
 {
-    private BagToPlayer bagToPlayerScript;
-    bool collided;
+    [SerializeField] private BagToPlayer BagToPlayer;
+    private bool collided;
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.tag == "Open Bag" || collider.gameObject.tag == "Closed Bag")
+        if (collider.gameObject.CompareTag("Closed Bag") || collider.gameObject.CompareTag("Open Bag"))
         {
-            bagToPlayerScript = collider.gameObject.GetComponent<BagToPlayer>();
-            bagToPlayerScript.StartMoving();
+            BagToPlayer.StartMoving();
             collided = true;
         }
     }
 
+    // hides the water hitbox so the bag doesnt buggout
     private void Update()
     {
         if (collided)
         {
-            if (bagToPlayerScript.move == true)
+            if (BagToPlayer.move == true)
             {
                 gameObject.GetComponent<BoxCollider>().enabled = false;
             }
 
-            if (bagToPlayerScript.move == false)
+            if (BagToPlayer.move == false)
             {
                 gameObject.GetComponent<BoxCollider>().enabled = true;
                 collided = false;

@@ -3,27 +3,26 @@ using UnityEngine.UI;
 
 public class BagInventory : MonoBehaviour
 {
-    // local meshfilter
-    private MeshFilter bagMesh;
-
     // text gameobjects
-    private GameObject carrotTextGO;
-    private GameObject wheatTextGO;
+    [SerializeField] private GameObject carrotCounter;
+    [SerializeField] private GameObject wheatCounter;
+
+    // bag variant meshes
+    [SerializeField] private Mesh closedBagMesh;
+    [SerializeField] private Mesh openBagMesh;
+
+
+    // bag's current mesh
+    private MeshFilter bagMesh;
 
     private void Start()
     {
         bagMesh = gameObject.GetComponent<MeshFilter>();
-        carrotTextGO = GameObject.Find("Carrot Nr");
-        wheatTextGO = GameObject.Find("Wheat Nr");
     }
 
-    // bag variant meshes
-    public Mesh closedBagMesh;
-    public Mesh openBagMesh;
-
-    // crops
-    int carrotNr = 0;
-    int wheatNr = 0;
+    // crop counters
+    private int carrotCount = 0;
+    private int wheatCount = 0;
 
     // fullness measurement
     public float weight = 0f;
@@ -32,21 +31,21 @@ public class BagInventory : MonoBehaviour
     public float value = 0f;
 
     public bool bagIsOpen = true;
-    
+
     // put carrots in bag
-    void OnCollisionEnter(Collision collider)
+    private void OnCollisionEnter(Collision collider)
     {
         if (bagIsOpen && collider.gameObject.CompareTag("Carrot") && collider.gameObject.transform.parent == null)
         {
-            carrotNr += 1;
-            string carrotNrText = carrotNr.ToString();
+            carrotCount += 1;
+            string carrotNrText = carrotCount.ToString();
 
-            carrotTextGO = GameObject.Find("Carrot Nr");
-            carrotTextGO.GetComponent<Text>().text = carrotNrText;
+            carrotCounter = GameObject.Find("Carrot Nr");
+            carrotCounter.GetComponent<Text>().text = carrotNrText;
 
             weight += 1f;
             Destroy(collider.gameObject);
-            Closing();
+            CloseBag();
         }
 
     }
@@ -56,21 +55,21 @@ public class BagInventory : MonoBehaviour
     {
         if (bagIsOpen)
         {
-            wheatNr += 1;
+            wheatCount += 1;
 
             //converts int to string
-            string wheatNrText = wheatNr.ToString();
+            string wheatNrText = wheatCount.ToString();
 
             //writes number of wheat
-            wheatTextGO.GetComponent<Text>().text = wheatNrText;
+            wheatCounter.GetComponent<Text>().text = wheatNrText;
 
             weight += 0.5f;
-            Closing();
+            CloseBag();
         }   
     }
 
     // close bag
-    void Closing()
+    private void CloseBag()
     {
         // close bag when its full
         if (weight >= 20)
@@ -85,7 +84,7 @@ public class BagInventory : MonoBehaviour
     }
 
     // open bag
-    public void Opening()
+    public void OpenBag()
     {
         bagIsOpen = true;
         bagMesh.mesh = openBagMesh;
@@ -93,14 +92,14 @@ public class BagInventory : MonoBehaviour
     }
 
     // reset counters on sale
-    public void Sell()
+    public void ResetCounters()
     {
-        Opening();
+        OpenBag();
         value = 0f;
         weight = 0f;
-        carrotNr = 0;
-        wheatNr = 0;
-        carrotTextGO.GetComponent<Text>().text = "0";
-        wheatTextGO.GetComponent<Text>().text = "0";
+        carrotCount = 0;
+        wheatCount = 0;
+        carrotCounter.GetComponent<Text>().text = "0";
+        wheatCounter.GetComponent<Text>().text = "0";
     }
 }
