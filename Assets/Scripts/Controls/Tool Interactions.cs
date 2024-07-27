@@ -43,7 +43,7 @@ public class ToolInteractions : MonoBehaviour
         }
     }
 
-    private void ItemPositionAndRotation()
+    public void ItemPositionAndRotation()
     {
         if (currentItem == "null" || grabbedObject == null) return;
 

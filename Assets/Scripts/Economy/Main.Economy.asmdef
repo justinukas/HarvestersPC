@@ -1,0 +1,17 @@
+{
+    "name": "Main.Economy",
+    "rootNamespace": "Main.Economy",
+    "references": [
+        "Main.Bag",
+        "Main.SeedBags"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

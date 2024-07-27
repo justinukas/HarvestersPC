@@ -16,7 +16,7 @@ public class BuyScript : MonoBehaviour
 
     void OnTriggerStay(Collider collider)
     {
-        if (collider.gameObject.tag == "CarrotBag")
+        if (collider.gameObject.CompareTag("CarrotBag"))
         {
             // script reference
             CarrotSeed CarrotSeed = collider.gameObject.transform.parent.GetComponent<CarrotSeed>();
@@ -29,7 +29,7 @@ public class BuyScript : MonoBehaviour
             }
         }
 
-        if (collider.gameObject.tag == "WheatBag")
+        if (collider.gameObject.CompareTag("WheatBag"))
         {
             // script reference
             WheatSeed WheatSeed = collider.gameObject.transform.parent.GetComponent<WheatSeed>();

@@ -23,7 +23,7 @@ public class Movement : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z;
         
 
-        if (isJumping == true /*Input.GetKeyDown(KeyCode.Space)*/ && isGrounded)
+        if (isJumping == true && isGrounded)
         {
             velocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
             isJumping = false;
@@ -31,7 +31,7 @@ public class Movement : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
 
-        GetComponent<CharacterController>().Move(velocity * Time.deltaTime + move * Time.deltaTime * playerSpeed);
+        GetComponent<CharacterController>().Move(velocity * Time.deltaTime + Time.deltaTime * playerSpeed * move);
     }
 
     public void Jump()
@@ -41,4 +41,9 @@ public class Movement : MonoBehaviour
             isJumping = true;
         }
     }
+
+    /*private void Sprint()
+    {
+
+    }*/
 }

@@ -15,6 +15,7 @@ public class Controls : MonoBehaviour
 
     private void Controls_ToolInteractions()
     {
+        ToolInteractions.ItemPositionAndRotation();
         if (Input.GetMouseButtonDown(0))
         {
             ToolInteractions.ItemUse();

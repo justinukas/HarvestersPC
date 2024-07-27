@@ -29,10 +29,10 @@ public class CarrotSeed : MonoBehaviour
             tilledDirt = collider.gameObject;
 
             // get the planting enabler script from tilled dirt gameobject
-            PlantingEnabler plantingEnablerScript = collider.gameObject.GetComponent<PlantingEnabler>();
+            PlantingEnabler PlantingEnabler = collider.gameObject.GetComponent<PlantingEnabler>();
 
             // check if planting is allowed and if timesUsed doesnt exceed 10
-            if (plantingEnablerScript.plantingAllowed == true && timesUsed <= 10)
+            if (PlantingEnabler.plantingAllowed == true && timesUsed <= 10)
             {
                 timesUsed += 1;
                 SpawnCarrot();
