@@ -1,20 +1,26 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class PlantingEnabler : MonoBehaviour
 {
-    public bool plantingAllowed = true;
+    public bool plantingAllowed;
 
-    void Update()
+    private void Start()
     {
-        if (transform.childCount > 0)
+        plantingAllowed = true;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("WheatBag") || collision.gameObject.CompareTag("CarrotBag"))
         {
-            plantingAllowed = false;
+            if (transform.childCount > 0)
+            {
+                plantingAllowed = false;
+            }
+            else if (transform.childCount <= 0)
+            {
+                plantingAllowed = true;
+            }
         }
-        
-        if (transform.childCount <= 0)
-        {
-            plantingAllowed = true;
-        }
-    }   
+    }
 }

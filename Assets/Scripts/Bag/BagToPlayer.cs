@@ -42,8 +42,8 @@ public class BagToPlayer : MonoBehaviour
         }
         if (Vector3.Distance(bag.position, player.position) < 5 && move == true)
         {
-            gameObject.GetComponent<Rigidbody>().angularDrag = 2;
-            gameObject.GetComponent<Rigidbody>().drag = 2;
+            gameObject.GetComponent<Rigidbody>().angularDrag = 10;
+            gameObject.GetComponent<Rigidbody>().drag = 10;
         }
 
         if (Vector3.Distance(bag.position, player.position) < 1)

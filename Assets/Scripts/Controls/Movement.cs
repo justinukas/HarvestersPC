@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// script is handled by Assets/Scripts/Controls/Controls.cs
 public class Movement : MonoBehaviour
 {
     private readonly float gravity = -9.81f;
@@ -10,7 +11,7 @@ public class Movement : MonoBehaviour
     private bool isJumping = false;
     private bool isGrounded;
 
-    void Update()
+    public void MoveCharacterController()
     {
         isGrounded = GetComponent<CharacterController>().isGrounded;
         if (isGrounded && velocity.y < 0f)
@@ -21,7 +22,7 @@ public class Movement : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
         Vector3 move = transform.right * x + transform.forward * z;
-        
+
 
         if (isJumping == true && isGrounded)
         {

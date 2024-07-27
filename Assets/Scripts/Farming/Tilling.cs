@@ -8,7 +8,7 @@ public class Tilling : MonoBehaviour
         cooldown -= Time.deltaTime;
     }
 
-    public GameObject tilledDirt;
+    public GameObject TilledDirt;
     public ParticleSystem ParticleSystem;
 
     private void OnCollisionEnter(Collision collider)
@@ -19,8 +19,8 @@ public class Tilling : MonoBehaviour
                 && contactPoint.thisCollider.gameObject.name == "Head")
 
             {
-                TillCounter tillCounter = collider.gameObject.GetComponent<TillCounter>();
-                tillCounter.timesTilled += 1;
+                TillCounter TillCounter = collider.gameObject.GetComponent<TillCounter>();
+                TillCounter.timesTilled += 1;
 
                 cooldown = 0.25f;
 
@@ -32,11 +32,11 @@ public class Tilling : MonoBehaviour
                 dirtParticles.Stop();
 
                 
-                if (tillCounter.timesTilled == 3)
+                if (TillCounter.timesTilled == 3)
                 {
                     dirtParticles.Emit(8);
                     dirtParticles.Stop();
-                    Instantiate(tilledDirt, collider.gameObject.transform.position, collider.gameObject.transform.rotation);
+                    Instantiate(TilledDirt, collider.gameObject.transform.position, collider.gameObject.transform.rotation);
                     Destroy(collider.gameObject);
                 }
             }

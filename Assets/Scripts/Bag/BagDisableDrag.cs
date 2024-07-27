@@ -3,20 +3,26 @@ using UnityEngine;
 public class BagDisableDrag : MonoBehaviour
 {
     [SerializeField] BagToPlayer BagToPlayer;
+    private Rigidbody Rigidbody;
+
+    private void Start()
+    {
+        Rigidbody = GetComponent<Rigidbody>();
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name != "Selling Hitbox")
         {
-            gameObject.GetComponent<Rigidbody>().drag = 1;
-            gameObject.GetComponent<Rigidbody>().angularDrag = 1;
+            Rigidbody.drag = 1;
+            Rigidbody.angularDrag = 1;
         }
     }
     private void OnCollisionExit(Collision collision)
     {
         if (BagToPlayer.move == false)
         {
-            gameObject.GetComponent<Rigidbody>().drag = 0;
-            gameObject.GetComponent<Rigidbody>().angularDrag = 0;
+            Rigidbody.drag = 0;
+            Rigidbody.angularDrag = 0;
         }
     }
 }

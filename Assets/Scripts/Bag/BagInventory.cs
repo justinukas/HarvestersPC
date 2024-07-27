@@ -7,12 +7,11 @@ public class BagInventory : MonoBehaviour
     [SerializeField] private GameObject carrotCounter;
     [SerializeField] private GameObject wheatCounter;
 
-    // bag variant meshes
+    // bag mesh variants
     [SerializeField] private Mesh closedBagMesh;
     [SerializeField] private Mesh openBagMesh;
 
-
-    // bag's current mesh
+    // bag's mesh
     private MeshFilter bagMesh;
 
     private void Start()
@@ -25,17 +24,18 @@ public class BagInventory : MonoBehaviour
     private int wheatCount = 0;
 
     // fullness measurement
-    public float weight = 0f;
+    [HideInInspector] public float weight = 0f;
 
     // money related
-    public float value = 0f;
+    [HideInInspector] public float value = 0f;
 
-    public bool bagIsOpen = true;
+
+    [HideInInspector] public bool isBagOpen = true;
 
     // put carrots in bag
     private void OnCollisionEnter(Collision collider)
     {
-        if (bagIsOpen && collider.gameObject.CompareTag("Carrot") && collider.gameObject.transform.parent == null)
+        if (isBagOpen && collider.gameObject.CompareTag("Carrot") && collider.gameObject.transform.parent == null)
         {
             carrotCount += 1;
             string carrotNrText = carrotCount.ToString();
@@ -44,7 +44,8 @@ public class BagInventory : MonoBehaviour
             carrotCounter.GetComponent<Text>().text = carrotNrText;
 
             weight += 1f;
-            Destroy(collider.gameObject);
+
+            Destroy(collider.gameObject); // destroy carrot
             CloseBag();
         }
 
@@ -53,7 +54,7 @@ public class BagInventory : MonoBehaviour
     // wheat collection
     public void WheatCollection()
     {
-        if (bagIsOpen)
+        if (isBagOpen)
         {
             wheatCount += 1;
 
@@ -74,7 +75,7 @@ public class BagInventory : MonoBehaviour
         // close bag when its full
         if (weight >= 20)
         {
-            bagIsOpen = false;
+            isBagOpen = false;
             bagMesh.mesh = closedBagMesh;
             gameObject.tag = "Closed Bag";
 
@@ -86,7 +87,7 @@ public class BagInventory : MonoBehaviour
     // open bag
     public void OpenBag()
     {
-        bagIsOpen = true;
+        isBagOpen = true;
         bagMesh.mesh = openBagMesh;
         gameObject.tag = "Open Bag";
     }

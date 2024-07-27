@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
+// script is handled by Assets/Scripts/Controls/Controls.cs
 public class ChargeBar : MonoBehaviour
 {
     [SerializeField] private Slider Slider;
@@ -23,17 +25,8 @@ public class ChargeBar : MonoBehaviour
         BagAnimator = Bag.transform.Find("Bag").GetComponent<Animator>();
     }
 
-    private void Update()
-    {
-        ShowBar();
-        FillBar();
-        LockBar();
-        ThrowBag();
-        HideBar();
-    }
-
     // shows bar when the bag is picked up
-    private void ShowBar()
+    public void ShowBar()
     {
         if (ToolInteractions.currentItem == "Bag" && ChargeBarsCanvasGroup.alpha < 1f && isFillLocked == false)
         {
@@ -49,9 +42,9 @@ public class ChargeBar : MonoBehaviour
     }
 
     // fills bar up and down and changes color accordingly
-    private void FillBar()
+    public void FillBar()
     {
-        if (Input.GetMouseButton(0) && isFillLocked == false && ChargeBarsCanvasGroup.alpha == 1)
+        if (isFillLocked == false && ChargeBarsCanvasGroup.alpha == 1)
         {
             if (BagAnimator.GetCurrentAnimatorStateInfo(0).IsName("Charge Up Bag Throw") || BagAnimator.GetCurrentAnimatorStateInfo(0).IsName("Hold Charge"))
             {
@@ -73,16 +66,16 @@ public class ChargeBar : MonoBehaviour
     }
 
     // makes chargebar fade out when LMB is released and locks it from changing in value
-    private void LockBar()
+    public void LockBar()
     {
-        if (Input.GetMouseButton(0) == false && Slider.value > 0 && isFillLocked == false)
+        if (Slider.value > 0 && isFillLocked == false)
         {
             isFillLocked = true;
             BagAnimator.SetTrigger("Throw");
         }
     }
 
-    private void ThrowBag()
+    public void ThrowBag()
     {
         if (isFillLocked == true && ChargeBarsCanvasGroup.alpha == 1)
         {
@@ -102,7 +95,7 @@ public class ChargeBar : MonoBehaviour
     }
 
     // hide charge bar after animation is finished and bar is locked
-    private void HideBar()
+    public void HideBar()
     {
         if (ChargeBarsCanvasGroup.alpha <= 1f && isFillLocked == true && BagAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState"))
         {

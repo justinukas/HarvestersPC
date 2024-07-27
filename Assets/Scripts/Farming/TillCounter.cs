@@ -2,5 +2,5 @@ using UnityEngine;
 
 public class TillCounter : MonoBehaviour
 {
-    public int timesTilled = 0;
+    [HideInInspector] public int timesTilled = 0;
 }
