@@ -1,44 +1,48 @@
+using Main.SeedBags;
 using UnityEngine;
 
-public class BuyScript : MonoBehaviour
+namespace Main.Economy
 {
-    // get the money stuff
-    [SerializeField] private MoneyCounter moneyCounter;
-
-    // float numbers for calculating how long the object has been in an area
-    private float minStayingLength = 4f;
-    private float timeOnEnter;
-
-    void OnTriggerEnter(Collider collider)
+    public class BuyScript : MonoBehaviour
     {
-        timeOnEnter = Time.time;
-    }
+        // get the money stuff
+        [SerializeField] private MoneyCounter moneyCounter;
 
-    void OnTriggerStay(Collider collider)
-    {
-        if (collider.gameObject.CompareTag("CarrotBag"))
+        // float numbers for calculating how long the object has been in an area
+        private readonly float minStayingLength = 4f;
+        private float timeOnEnter;
+        private int price;
+
+        void OnTriggerEnter(Collider collider)
         {
-            // script reference
-            CarrotSeed CarrotSeed = collider.gameObject.transform.parent.GetComponent<CarrotSeed>();
-
-            if (CarrotSeed.timesUsed >= 10 && Time.time - timeOnEnter >= minStayingLength && moneyCounter.moneyNr >= 10)
-            {
-                moneyCounter.moneyNr -= 10;
-
-                CarrotSeed.Bought();
-            }
+            timeOnEnter = Time.time;
         }
 
-        if (collider.gameObject.CompareTag("WheatBag"))
+        void OnTriggerStay(Collider collider)
         {
-            // script reference
-            WheatSeed WheatSeed = collider.gameObject.transform.parent.GetComponent<WheatSeed>();
-
-            if (WheatSeed.timesUsed >= 10 && Time.time - timeOnEnter >= minStayingLength && moneyCounter.moneyNr >= 15)
+            if (collider.gameObject.transform.parent.GetComponent<SeedBag>())
             {
-                moneyCounter.moneyNr -= 15;
-                WheatSeed.Bought();
+                SeedBag SeedBag = collider.gameObject.transform.parent.GetComponent<SeedBag>();
+                string BagVariant = SeedBag.BagVariant;
+
+                switch (BagVariant)
+                {
+                    case "Carrot":
+                        price = 10;
+                        break;
+                    case "Wheat":
+                        price = 15;
+                        break;
+                }
+
+                if (SeedBag.timesUsed >= 10 && Time.time - timeOnEnter >= minStayingLength && moneyCounter.moneyNr >= 10)
+                {
+                    moneyCounter.moneyNr -= price;
+
+                    SeedBag.Bought();
+                }
             }
+
         }
     }
 }

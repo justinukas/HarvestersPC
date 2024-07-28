@@ -6,20 +6,27 @@ public class PlantingEnabler : MonoBehaviour
 
     private void Start()
     {
-        plantingAllowed = true;
+        if (transform.Find("WheatParent").childCount == 0 && transform.Find("CarrotParent").childCount == 0)
+        {
+            plantingAllowed = true;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("WheatBag") || collision.gameObject.CompareTag("CarrotBag"))
         {
-            if (transform.childCount > 0)
+            if (transform.Find("WheatParent").childCount > 0 || transform.Find("CarrotParent").childCount > 0)
             {
+                GetComponent<BoxCollider>().enabled = false;
                 plantingAllowed = false;
+                GetComponent<BoxCollider>().enabled = true;
             }
-            else if (transform.childCount <= 0)
+            else if (transform.Find("WheatParent").childCount == 0 && transform.Find("CarrotParent").childCount == 0)
             {
+                GetComponent<BoxCollider>().enabled = false;
                 plantingAllowed = true;
+                GetComponent<BoxCollider>().enabled = true;
             }
         }
     }

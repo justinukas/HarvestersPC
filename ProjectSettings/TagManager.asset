@@ -14,10 +14,10 @@ TagManager:
   - HarvestedWheat
   - Tree
   - CutTree
-  - WheatBag
-  - CarrotBag
   - Open Bag
   - Closed Bag
+  - WheatParent
+  - CarrotParent
   layers:
   - Default
   - TransparentFX

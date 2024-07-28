@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2826305909887541950}
   - component: {fileID: 749046123668406934}
-  - component: {fileID: 378536579724099599}
+  - component: {fileID: 3030808442038462185}
   m_Layer: 6
   m_Name: Carrot
   m_TagString: Carrot
@@ -64,7 +64,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &378536579724099599
+--- !u!114 &3030808442038462185
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,40 +73,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1925064279624246226}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 062a8d8f1ca2aa444bfc14b151e3878a, type: 3}
+  m_Script: {fileID: 11500000, guid: f065ed65428fd7b4ebb2211de0c8b651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DisableGrabbing:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  EnableGrabbing:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  hasParent: 1
+  isHarvestable: 0
 --- !u!1 &4576785809015972431
 GameObject:
   m_ObjectHideFlags: 0

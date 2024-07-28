@@ -1,33 +1,36 @@
 using UnityEngine;
 
-public class BagWaterInteraction : MonoBehaviour
+namespace Main.Bag
 {
-    [SerializeField] private BagToPlayer BagToPlayer;
-    private bool collided;
-
-    private void OnTriggerEnter(Collider collider)
+    public class BagWaterInteraction : MonoBehaviour
     {
-        if (collider.gameObject.CompareTag("Closed Bag") || collider.gameObject.CompareTag("Open Bag"))
-        {
-            BagToPlayer.StartMoving();
-            collided = true;
-        }
-    }
+        [SerializeField] private BagToPlayer BagToPlayer;
+        private bool collided;
 
-    // hides the water hitbox so the bag doesnt buggout
-    private void Update()
-    {
-        if (collided)
+        private void OnTriggerEnter(Collider collider)
         {
-            if (BagToPlayer.move == true)
+            if (collider.gameObject.CompareTag("Closed Bag") || collider.gameObject.CompareTag("Open Bag"))
             {
-                gameObject.GetComponent<BoxCollider>().enabled = false;
+                BagToPlayer.StartMoving();
+                collided = true;
             }
+        }
 
-            if (BagToPlayer.move == false)
+        // hides the water hitbox so the bag doesnt buggout
+        private void Update()
+        {
+            if (collided)
             {
-                gameObject.GetComponent<BoxCollider>().enabled = true;
-                collided = false;
+                if (BagToPlayer.move == true)
+                {
+                    gameObject.GetComponent<BoxCollider>().enabled = false;
+                }
+
+                if (BagToPlayer.move == false)
+                {
+                    gameObject.GetComponent<BoxCollider>().enabled = true;
+                    collided = false;
+                }
             }
         }
     }

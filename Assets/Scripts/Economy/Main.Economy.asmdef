@@ -2,8 +2,9 @@
     "name": "Main.Economy",
     "rootNamespace": "Main.Economy",
     "references": [
-        "Main.Bag",
-        "Main.SeedBags"
+        "GUID:43108cffe4e0ac04e9dd07118d08c533",
+        "GUID:860ba3e9ebf9dfd458bb83266c0fdd1b",
+        "GUID:a1daec9f07631d14f868e82809a9841b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,78 +1,82 @@
 using UnityEngine;
 
 // handles all scripts that have to do with keyboard/mouse controls
-public class Controls : MonoBehaviour
+namespace Main.Controls
 {
-    [SerializeField] EscapeMenu EscapeMenu;
-    [SerializeField] ToolInteractions ToolInteractions;
-    [SerializeField] Movement Movement;
-    [SerializeField] ChargeBar ChargeBar;
-    [SerializeField] MouseLook MouseLook;
-
-    void Update()
+    public class Controls : MonoBehaviour
     {
-        Controls_Movement();
-        Controls_MouseLook();
-        Controls_EscapeMenu();
-        Controls_ToolInteractions();
-        Controls_ChargeBar();
-    }
+        [SerializeField] EscapeMenu EscapeMenu;
+        [SerializeField] ToolInteractions ToolInteractions;
+        [SerializeField] Movement Movement;
+        [SerializeField] ChargeBar ChargeBar;
+        [SerializeField] MouseLook MouseLook;
 
-    private void Controls_Movement()
-    {
-        Movement.MoveCharacterController();
-        if (Input.GetKeyDown(KeyCode.Space))
+        void Update()
         {
-            Movement.Jump();
-        }
-    }
-
-    private void Controls_MouseLook()
-    {
-        MouseLook.ControlMouse();
-    }
-
-    private void Controls_EscapeMenu()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            EscapeMenu.OpenMenu();
-        }
-    }
-
-    private void Controls_ToolInteractions()
-    {
-        ToolInteractions.ItemPositionAndRotation();
-        if (Input.GetMouseButtonDown(0))
-        {
-            ToolInteractions.ItemUse();
+            Controls_Movement();
+            Controls_MouseLook();
+            Controls_EscapeMenu();
+            Controls_ToolInteractions();
+            Controls_ChargeBar();
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        private void Controls_Movement()
         {
-            ToolInteractions.ItemRaycast();
+            Movement.MoveCharacterController();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Movement.Jump();
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        private void Controls_MouseLook()
         {
-            ToolInteractions.ItemDrop();
-        }
-    }
-
-    private void Controls_ChargeBar()
-    {
-        ChargeBar.ShowBar();
-        ChargeBar.ThrowBag();
-        ChargeBar.HideBar();
-
-        if (Input.GetMouseButton(0))
-        {
-            ChargeBar.FillBar();
+            MouseLook.ControlMouse();
         }
 
-        if (!Input.GetMouseButtonDown(0))
+        private void Controls_EscapeMenu()
         {
-            ChargeBar.LockBar();
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                EscapeMenu.OpenMenu();
+            }
+        }
+
+        private void Controls_ToolInteractions()
+        {
+            ToolInteractions.ItemPositionAndRotation();
+            if (Input.GetMouseButtonDown(0))
+            {
+                ToolInteractions.ItemUse();
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                ToolInteractions.ItemRaycast();
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                ToolInteractions.ItemDrop();
+            }
+        }
+
+        private void Controls_ChargeBar()
+        {
+            ChargeBar.ShowBar();
+            ChargeBar.ThrowBag();
+            ChargeBar.HideBar();
+
+            if (Input.GetMouseButton(0))
+            {
+                ChargeBar.FillBar();
+            }
+
+            if (!Input.GetMouseButtonDown(0))
+            {
+                ChargeBar.LockBar();
+            }
         }
     }
 }
+

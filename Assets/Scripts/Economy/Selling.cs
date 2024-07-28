@@ -1,47 +1,51 @@
 using UnityEngine;
+using Main.Bag;
 
-public class Selling : MonoBehaviour
+namespace Main.Economy
 {
-    [SerializeField] BagInventory BagInventory;
-    [SerializeField] MoneyCounter MoneyCounter;
-    [SerializeField] BagToPlayer BagToPlayer;
-
-    private void OnTriggerEnter(Collider collider)
+    public class Selling : MonoBehaviour
     {
-        if (collider.gameObject.CompareTag("Closed Bag") || collider.gameObject.CompareTag("Open Bag"))
+        [SerializeField] BagInventory BagInventory;
+        [SerializeField] MoneyCounter MoneyCounter;
+        [SerializeField] BagToPlayer BagToPlayer;
+
+        private void OnTriggerEnter(Collider collider)
         {
-
-            if (collider.gameObject.CompareTag("Closed Bag"))
+            if (collider.gameObject.CompareTag("Closed Bag") || collider.gameObject.CompareTag("Open Bag"))
             {
-                MoneyCounter.moneyNr += BagInventory.value;
 
-                BagInventory.ResetCounters();
-                BagToPlayer.StartMoving();
-                Leave();
-            }
+                if (collider.gameObject.CompareTag("Closed Bag"))
+                {
+                    MoneyCounter.moneyNr += BagInventory.value;
 
-            if (collider.gameObject.CompareTag("Open Bag"))
-            {
-                BagToPlayer.StartMoving();
+                    BagInventory.ResetCounters();
+                    BagToPlayer.StartMoving();
+                    Leave();
+                }
+
+                if (collider.gameObject.CompareTag("Open Bag"))
+                {
+                    BagToPlayer.StartMoving();
+                }
             }
         }
-    }
 
-    private void Leave()
-    {
-        Animator boatAnimator = gameObject.transform.parent.GetComponent<Animator>();
-        boatAnimator.SetTrigger("triggerLeave");
-    }
-
-    private void Update()
-    {
-        if (BagToPlayer.move == true)
+        private void Leave()
         {
-            gameObject.GetComponent<BoxCollider>().enabled = false;
+            Animator boatAnimator = gameObject.transform.parent.GetComponent<Animator>();
+            boatAnimator.SetTrigger("triggerLeave");
         }
-        else if (BagToPlayer.move == false)
+
+        private void Update()
         {
-            gameObject.GetComponent<BoxCollider>().enabled = true;
+            if (BagToPlayer.move == true)
+            {
+                gameObject.GetComponent<BoxCollider>().enabled = false;
+            }
+            else if (BagToPlayer.move == false)
+            {
+                gameObject.GetComponent<BoxCollider>().enabled = true;
+            }
         }
     }
 }
