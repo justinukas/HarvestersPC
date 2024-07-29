@@ -18,6 +18,7 @@ TagManager:
   - Closed Bag
   - WheatParent
   - CarrotParent
+  - Seed Bag
   layers:
   - Default
   - TransparentFX

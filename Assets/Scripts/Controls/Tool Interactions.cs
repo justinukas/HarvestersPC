@@ -13,6 +13,8 @@ namespace Main.Controls
         // transform for default tool position
         [HideInInspector] public Transform defaultToolPosition;
 
+        
+
         // checks for raycast collision within 1.5 units and in front of camera on the press of E
         public void ItemRaycast()
         {
@@ -23,7 +25,7 @@ namespace Main.Controls
             {
                 grabbedObject = hit.collider.gameObject;
 
-                if (grabbedObject.name == "Scythe" || grabbedObject.name == "Axe" || grabbedObject.name == "Hoe" || grabbedObject.name == "Bag")
+                if (grabbedObject.name == "Scythe" || grabbedObject.name == "Axe" || grabbedObject.name == "Hoe" || grabbedObject.name == "Bag" || grabbedObject.name == "Seed Bag")
                 {
                     currentItem = grabbedObject.name;
 
@@ -69,6 +71,9 @@ namespace Main.Controls
                 case "Bag":
                     offset = new Vector3(0, 0, 0);
                     grabbedObject.transform.rotation = defaultToolPosition.rotation * Quaternion.Euler(-90, 180, 180); break;
+                case "Seed Bag":
+                    offset = new Vector3(0, 0, 0);
+                    grabbedObject.transform.rotation = defaultToolPosition.rotation * Quaternion.Euler(0, 180, 0); break;
 
             }
             grabbedObject.transform.position = defaultToolPosition.position + offset;
@@ -94,7 +99,14 @@ namespace Main.Controls
                     currentAnimator.Play("Charge Up Bag Throw");
                 }
             }
-
+            else if (currentItem == "Seed Bag")
+            {
+                if (currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("Plant Seeds") == false && currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("Plant Seeds_Return") == false)
+                {
+                    currentAnimator.Play("Plant Seeds");
+                    grabbedObject.transform.Find(currentItem).Find("Seed Particles").GetComponent<ParticleSystem>().Play();
+                }
+            }
             if (currentItem == "Scythe" || currentItem == "Axe" || currentItem == "Hoe")
             { isSwinging = currentAnimator.GetCurrentAnimatorStateInfo(0).IsName($"{currentItem} Swing"); }
         }

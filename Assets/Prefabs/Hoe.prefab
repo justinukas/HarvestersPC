@@ -374,7 +374,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7850732552796307472}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.11839562, w: 0.99296653}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 111.77, y: 0.839, z: 38.936}
   m_LocalScale: {x: 0.012, y: 0.012000005, z: 0.012000005}
   m_ConstrainProportionsScale: 1
@@ -385,7 +385,7 @@ Transform:
   - {fileID: 6616217725895599899}
   - {fileID: 8715292356115684994}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 13.599}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2619069102355471459
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -425,7 +425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1651f637c7e7d247ac8fed28b3b538b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilledDirt: {fileID: 8708544614371505984, guid: d5197214f72bc0b45a5734eac1d0c458, type: 3}
+  TilledDirt: {fileID: 0}
   ParticleSystem: {fileID: 7378439522049126983, guid: 71de35ff70b33714382b0a14b442d502, type: 3}
 --- !u!1 &8355155960206723902
 GameObject:
