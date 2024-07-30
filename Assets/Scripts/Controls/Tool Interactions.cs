@@ -99,7 +99,7 @@ namespace Main.Controls
                     currentAnimator.Play("Charge Up Bag Throw");
                 }
             }
-            else if (currentItem == "Seed Bag")
+            else if (currentItem == "Wheat Seed Bag" || currentItem == "Carrot Seed Bag")
             {
                 if (currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("Plant Seeds") == false && currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("Plant Seeds_Return") == false)
                 {

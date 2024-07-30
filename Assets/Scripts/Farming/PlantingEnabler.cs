@@ -16,7 +16,7 @@ namespace Main.Farming
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.CompareTag("WheatBag") || collision.gameObject.CompareTag("CarrotBag"))
+            if (collision.gameObject.CompareTag("Seed Bag"))
             {
                 if (transform.Find("WheatParent").childCount > 0 || transform.Find("CarrotParent").childCount > 0)
                 {

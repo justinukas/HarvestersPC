@@ -21,22 +21,21 @@ namespace Main.SeedBags
 
         // stuff for determining plant position
         private GameObject tilledDirt;
-        private Vector3 dirtSurface;
 
         // lists for plant positions
-        private List<Vector3> wheatPositionsList = new();
-        private List<Vector3> carrotPositionsList = new();
+        private readonly List<Vector3> wheatPositionsList = new();
+        private readonly List<Vector3> carrotPositionsList = new();
 
         // references for plant parent transforms
         private Transform WheatParent;
         private Transform CarrotParent;
 
-        private readonly Dictionary<string, (List<Vector3>, Transform, GameObject)> plantInfo;
+        private Dictionary<string, (List<Vector3>, Transform, GameObject)> plantInfo;
 
         private void Start()
         {
             // renders bag unusable on game start
-            timesUsed = 50; 
+            //timesUsed = 50; 
 
             r = rFinal;
 
@@ -45,14 +44,19 @@ namespace Main.SeedBags
             else if (gameObject.name == "Wheat Seed Bag") 
                 BagVariant = "Wheat";
 
-            
+            Debug.Log(BagVariant);
+
             ChangeColor();
         }
 
+        
         private void InitializePlantInfo()
         {
-            plantInfo["Wheat"] = (wheatPositionsList, WheatParent, Wheat);
-            plantInfo["Carrot"] = (carrotPositionsList, CarrotParent, Carrot);
+            plantInfo = new Dictionary<string, (List<Vector3>, Transform, GameObject)>
+            {
+                {"Wheat", (wheatPositionsList, WheatParent, Wheat)},
+                {"Carrot", (carrotPositionsList, CarrotParent, Carrot)}
+            };
         }
 
         private void OnCollisionEnter(Collision collider)
@@ -64,13 +68,13 @@ namespace Main.SeedBags
                 WheatParent = tilledDirt.transform.Find("WheatParent");
                 CarrotParent = tilledDirt.transform.Find("CarrotParent");
 
-                InitializePlantInfo();
-
                 PlantingEnabler PlantingEnabler = collider.gameObject.GetComponent<PlantingEnabler>();
 
                 if (PlantingEnabler.plantingAllowed == true && timesUsed <= 50)
                 {
                     timesUsed++;
+
+                    InitializePlantInfo();
 
                     PlantPositionListing();
                     SpawnPlants();
@@ -85,46 +89,46 @@ namespace Main.SeedBags
         {
             if (BagVariant == "Wheat")
             {
-                float currentWheatOffsetX = 0.4f;
-                float currentWheatOffsetZ = 0.45f;
+                float initialWheatOffsetX = 0.4f;
+                float initialWheatOffsetZ = 0.4f;
 
                 float offset = 0.2f;
+
+                float currentWheatOffsetX = initialWheatOffsetX;
+                float currentWheatOffsetZ = initialWheatOffsetZ;
+
                 for (int rows = 1; rows <= 5; rows++)
                 {
-                    for (int columns = 1; columns <= 4; columns++)
+                    for (int columns = 1; columns <= 5; columns++)
                     {
-                        wheatPositionsList.Add(new Vector3(currentWheatOffsetX, 0.3f, currentWheatOffsetZ));
+                        wheatPositionsList.Add(new Vector3(currentWheatOffsetX, 0.30f, currentWheatOffsetZ));
                         currentWheatOffsetZ -= offset;
                     }
-                    wheatPositionsList.Add(new Vector3(currentWheatOffsetX, 0.3f, currentWheatOffsetZ));
                     currentWheatOffsetX -= offset;
-                    currentWheatOffsetZ = 0.45f;
+                    currentWheatOffsetZ = initialWheatOffsetZ;
                 }
             }
 
             else if (BagVariant == "Carrot")
             {
                 Vector3[] carrotOffsets = { 
-                    new Vector3(-0.4f, 0.07f, -0.4f)/*bottom right*/, 
-                    new Vector3(0f, 0.07f, -0.4f)/*middle right*/, 
-                    new Vector3(0f, 0.07f, -0.05f)/*middle*/, 
-                    new Vector3(0f, 0.07f, 0.3f)/*middle left*/,
-                    new Vector3(0.4f, 0.07f, -0.4f), /*top right*/ 
-                    new Vector3(-0.4f, 0.07f, 0.3f)/*bottom left*/, 
-                    new Vector3(0.4f, 0.07f, 0.3f)/*top right*/, 
-                    new Vector3(0.4f, 0.07f, -0.05f)/*middle top*/,
-                    new Vector3(-0.4f, 0.07f, -0.05f) /*middle bottom*/};
+                    new Vector3(-0.4f, 0.2f, -0.382f)/*bottom right*/, 
+                    new Vector3(0f, 0.2f, -0.382f)/*middle right*/, 
+                    new Vector3(0f, 0.2f, 0f)/*middle*/, 
+                    new Vector3(0f, 0.2f, 0.3935f)/*middle left*/,
+                    new Vector3(0.4f, 0.2f, -0.382f), /*top right*/ 
+                    new Vector3(-0.4f, 0.2f, 0.3935f)/*bottom left*/, 
+                    new Vector3(0.4f, 0.2f, 0.3935f)/*top right*/, 
+                    new Vector3(0.4f, 0.2f, 0f)/*middle top*/,
+                    new Vector3(-0.4f, 0.2f, 0f) /*middle bottom*/};
                 carrotPositionsList.AddRange(carrotOffsets);
             }
+            
         }
 
         // Instantiate plants at fixed locations on the top surface of the dirt
         private void SpawnPlants()
         {
-            Vector3 dirtPosition = tilledDirt.transform.position;
-            // Get the top surface position of the dirt
-            dirtSurface = dirtPosition + Vector3.up * dirtPosition.y / 2f;
-
             if (plantInfo.TryGetValue(BagVariant, out var info))
             {
                 List<Vector3> positions = info.Item1;
@@ -133,9 +137,9 @@ namespace Main.SeedBags
 
                 foreach (Vector3 spawnOffset in positions)
                 {
-                    Vector3 finalSpawnPosition = dirtSurface + spawnOffset;
-                    GameObject plantClone = Instantiate(plant, finalSpawnPosition, Quaternion.identity);
+                    GameObject plantClone = Instantiate(plant, spawnOffset + tilledDirt.transform.position, Quaternion.identity);
                     plantClone.transform.SetParent(parent);
+                    plantClone.name = plant.name;
                 }
             }
         }
@@ -143,9 +147,7 @@ namespace Main.SeedBags
         // emits particles when the wheat is planted
         private void PlantingParticlesEmit()
         {
-            ParticleSystem PlantParticlesCopy = Instantiate(PlantParticles, dirtSurface, Quaternion.identity);
-
-            PlantParticlesCopy.transform.position = new Vector3(dirtSurface.x, dirtSurface.y + 0.45f, dirtSurface.z);
+            ParticleSystem PlantParticlesCopy = Instantiate(PlantParticles, tilledDirt.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
 
             PlantParticlesCopy.Emit(10);
             PlantParticlesCopy.Stop();
@@ -176,7 +178,5 @@ namespace Main.SeedBags
             timesUsed = 0;
             r = rDefault;
         }
-
-
     }
 }

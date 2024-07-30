@@ -4,14 +4,13 @@ using UnityEngine;
 
 namespace Main.Farming
 {
+
     // CHATGPT COMING IN CLUTCH WITH THIS. LET IT COOK NOW
     public class PlantGrowth : MonoBehaviour
     {
         [HideInInspector] public float growthRate = 0.01f;
 
         private Dictionary<string, (float MaxHeight, Color? GrownColor, string ChildName)> plantTypes;
-
-
         private void Start()
         {
             InitializePlantTypes();
@@ -22,11 +21,10 @@ namespace Main.Farming
         {
             plantTypes = new Dictionary<string, (float MaxHeight, Color? GrownColor, string ChildName)>
             {
-                {"WheatParent", (0.94f, new Color(0.9960784f, 0.9490196f, 0.5707546f), "Wheat(Clone)") },
-                {"CarrotParent", (0.27f, null, "Carrot(Clone)") }
+                {"WheatParent", (0.629f, new Color(0.9960784f, 0.9490196f, 0.5707546f), "Wheat(Clone)") },
+                {"CarrotParent", (0.10f, null, "Carrot(Clone)") }
                 // add new plants here
             };
-
         }
 
         private IEnumerator GrowPlants()
