@@ -11,26 +11,21 @@ namespace Main.Economy
 
         private void OnTriggerEnter(Collider collider)
         {
-            if (collider.gameObject.CompareTag("Closed Bag") || collider.gameObject.CompareTag("Open Bag"))
+            if (collider.gameObject.name == "Bag")
             {
-
-                if (collider.gameObject.CompareTag("Closed Bag"))
+                if (BagInventory.weight > 0)
                 {
                     MoneyCounter.moneyNr += BagInventory.value;
+                    MoneyCounter.UpdateMoneyCount();
 
-                    BagInventory.ResetCounters();
+                    BagInventory.ResetAllCounters();
                     BagToPlayer.StartMoving();
-                    Leave();
-                }
-
-                if (collider.gameObject.CompareTag("Open Bag"))
-                {
-                    BagToPlayer.StartMoving();
+                    BoatLeave();
                 }
             }
         }
 
-        private void Leave()
+        private void BoatLeave()
         {
             Animator boatAnimator = gameObject.transform.parent.GetComponent<Animator>();
             boatAnimator.SetTrigger("triggerLeave");

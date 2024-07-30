@@ -35,30 +35,4 @@ public class LightingManager : MonoBehaviour
         }
 
     }
-
-    //finds a directional light to use if we havent set one
-    private void OnValidate()
-    {
-        if (DirectionalLight != null)
-            return;
-
-        //Search for lighting tab sun
-        if (RenderSettings.sun != null)
-        {
-            DirectionalLight = RenderSettings.sun;
-        }
-        //Search scene for light that fits criteria (directional)
-        else
-        {
-            Light[] lights = GameObject.FindObjectsOfType<Light>();
-            foreach (Light light in lights)
-            {
-                if (light.type == LightType.Directional)
-                {
-                    DirectionalLight = light;
-                    return;
-                }
-            }
-        }
-    }
 }

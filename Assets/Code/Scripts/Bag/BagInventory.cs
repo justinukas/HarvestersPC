@@ -95,7 +95,7 @@ namespace Main.Bag
         }
 
         // reset counters on sale
-        public void ResetCounters()
+        public void ResetAllCounters()
         {
             OpenBag();
             value = 0f;
@@ -107,4 +107,3 @@ namespace Main.Bag
         }
     }
 }
-

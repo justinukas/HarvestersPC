@@ -6,7 +6,7 @@ namespace Main.Economy
     public class BuyScript : MonoBehaviour
     {
         // get the money stuff
-        [SerializeField] private MoneyCounter moneyCounter;
+        [SerializeField] private MoneyCounter MoneyCounter;
 
         // float numbers for calculating how long the object has been in an area
         private readonly float minStayingLength = 4f;
@@ -35,9 +35,10 @@ namespace Main.Economy
                         break;
                 }
 
-                if (SeedBag.timesUsed >= 10 && Time.time - timeOnEnter >= minStayingLength && moneyCounter.moneyNr >= 10)
+                if (SeedBag.timesUsed >= 10 && Time.time - timeOnEnter >= minStayingLength && MoneyCounter.moneyNr >= 10)
                 {
-                    moneyCounter.moneyNr -= price;
+                    MoneyCounter.moneyNr -= price;
+                    MoneyCounter.UpdateMoneyCount();
 
                     SeedBag.Bought();
                 }

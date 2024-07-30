@@ -6,8 +6,7 @@ public class MoneyCounter : MonoBehaviour
     public float moneyNr;
     private string moneyText;
 
-    // update amount of money every frame
-    void Update()
+    public void UpdateMoneyCount()
     {
         // converts int to string
         moneyText = moneyNr.ToString();

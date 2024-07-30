@@ -39,16 +39,17 @@ public class Foggy : MonoBehaviour
             RenderSettings.fogColor = new Color(r, g, b);
         }
 
-        if (playerCollided == false)
+        else if (playerCollided == false)
         {
             if (RenderSettings.fogDensity >= 0.006f)
             {
                 RenderSettings.fogDensity -= Time.deltaTime / 8;
             }
-            if (RenderSettings.fogDensity <= 0.006f)
+            else if (RenderSettings.fogDensity <= 0.006f)
             {
                 RenderSettings.fogDensity += Time.deltaTime / 8;
             }
+
             if (r <= 0.9372549f)
             {
                 r += Time.deltaTime / 9;
@@ -68,7 +69,8 @@ public class Foggy : MonoBehaviour
         {
             directionalLight.intensity -= Time.deltaTime / 2;
         }
-        if (playerCollided == false && directionalLight.intensity <= 1)
+
+        else if (playerCollided == false && directionalLight.intensity <= 1)
         {
             directionalLight.intensity += Time.deltaTime / 2;
         }

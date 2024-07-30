@@ -1,15 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TreeDestruction : MonoBehaviour
 {
-    public void DestructionInitiator()
+    public IEnumerator DestroyTree()
     {
-        Invoke("Destruction", 3);
-    }
-    private void Destruction()
-    {
+        yield return new WaitForSeconds(2.0f);
         Destroy(gameObject);
     }
 }
