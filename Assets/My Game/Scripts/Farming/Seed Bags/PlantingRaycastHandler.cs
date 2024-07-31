@@ -15,7 +15,7 @@ namespace Main.Farming
 
         public void CheckRaycast(ref int timesUsed, ref GameObject tilledDirt)
         {
-            if (Input.GetMouseButtonUp(0) && animator.GetCurrentAnimatorStateInfo(0).IsName("Plant Seeds"))
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Plant Seeds") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.6f)
             {
                 Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
                 LayerMask TilledDirt = 1 << 9;
@@ -23,15 +23,12 @@ namespace Main.Farming
                 if (Physics.Raycast(ray, out RaycastHit hit, 1.5f, TilledDirt))
                 {
                     tilledDirt = hit.collider.gameObject;
-
                     PlantingEnabler plantingEnabler = tilledDirt.GetComponent<PlantingEnabler>();
 
                     if (plantingEnabler.plantingAllowed && timesUsed <= 50)
                     {
                         timesUsed++;
-
                         seedBagManager.InitializePlanting();
-
                         plantingEnabler.plantingAllowed = false;
 
                     }

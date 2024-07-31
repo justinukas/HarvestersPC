@@ -5,17 +5,16 @@ namespace Main.Farming
 {
     public class PlantSpawningHandler : MonoBehaviour
     {
-        PlantInfoHandler PlantInfoHandler;
+        PlantInfoHandler plantInfoHandler;
 
         private void Start()
         {
-            PlantInfoHandler = GetComponent<PlantInfoHandler>();
+            plantInfoHandler = GetComponent<PlantInfoHandler>();
         }
 
-        // Instantiate plants at fixed locations on the top surface of the dirt
         public void SpawnPlants(string bagVariant, GameObject tilledDirt)
         {
-            if (PlantInfoHandler.plantInfo.TryGetValue(bagVariant, out var info))
+            if (plantInfoHandler.plantInfo.TryGetValue(bagVariant, out var info))
             {
                 List<Vector3> positions = info.Item1;
                 Transform parent = info.Item2;

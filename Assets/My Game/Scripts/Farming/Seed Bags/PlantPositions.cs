@@ -18,9 +18,7 @@ namespace Main.Farming
         {
             float initialWheatOffsetX = 0.4f;
             float initialWheatOffsetZ = 0.4f;
-
             float offset = 0.2f;
-
             float currentWheatOffsetX = initialWheatOffsetX;
             float currentWheatOffsetZ = initialWheatOffsetZ;
 
@@ -31,7 +29,6 @@ namespace Main.Farming
                     wheatPositionsList.Add(new Vector3(currentWheatOffsetX, 0.30f, currentWheatOffsetZ));
                     currentWheatOffsetZ -= offset;
                 }
-
                 currentWheatOffsetX -= offset;
                 currentWheatOffsetZ = initialWheatOffsetZ;
             }
@@ -40,7 +37,6 @@ namespace Main.Farming
         public static void ListCarrotPositions()
         {
             Vector3[] carrotOffsets = {
-
                     new Vector3(-0.4f, 0.2f, -0.382f), //bottom right
                     new Vector3(0f, 0.2f, -0.382f), //middle right
                     new Vector3(0f, 0.2f, 0f), //middle
@@ -50,10 +46,9 @@ namespace Main.Farming
                     new Vector3(0.4f, 0.2f, 0.3935f), //top right
                     new Vector3(0.4f, 0.2f, 0f), //middle top
                     new Vector3(-0.4f, 0.2f, 0f) //middle bottom
-
                 };
+
             carrotPositionsList.AddRange(carrotOffsets);
         }
-
     }
 }
