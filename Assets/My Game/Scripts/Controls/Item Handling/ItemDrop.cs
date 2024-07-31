@@ -10,11 +10,20 @@ namespace Main.Controls
             {
                 if (currentItem != "null")
                 {
-                    grabbedObject.transform.Find(currentItem).GetComponent<Animator>().Play("DefaultState");
+                    if (currentItem == "Scythe" || currentItem == "Axe" || currentItem == "Hoe" || currentItem == "Bag")
+                    {
+                        grabbedObject.transform.Find(currentItem).GetComponent<Animator>().Play("DefaultState");
+                    }
+                    else if (currentItem == "Wheat Seed Bag" || currentItem == "Carrot Seed Bag")
+                    {
+                        grabbedObject.transform.Find("Seed Bag").GetComponent<Animator>().Play("DefaultState");
+                    }
+                    
                     grabbedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                     isSwinging = false;
                     currentItem = "null";
                     grabbedObject = null;
+
                 }
             }
         }

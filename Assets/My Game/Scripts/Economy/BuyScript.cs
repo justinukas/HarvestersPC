@@ -1,5 +1,5 @@
-using Main.SeedBags;
 using UnityEngine;
+using Main.Farming;
 
 namespace Main.Economy
 {
@@ -9,7 +9,7 @@ namespace Main.Economy
         [SerializeField] private MoneyCounter MoneyCounter;
 
         // float numbers for calculating how long the object has been in an area
-        private readonly float minStayingLength = 4f;
+        private readonly float requiredStayLength = 4f;
         private float timeOnEnter;
         private int price;
 
@@ -20,10 +20,10 @@ namespace Main.Economy
 
         void OnTriggerStay(Collider collider)
         {
-            if (collider.gameObject.transform.parent.GetComponent<SeedBag>())
+            if (collider.gameObject.GetComponent<SeedBagManager>())
             {
-                SeedBag SeedBag = collider.gameObject.transform.parent.GetComponent<SeedBag>();
-                string BagVariant = SeedBag.bagVariant;
+                SeedBagManager seedBagManager = collider.gameObject.GetComponent<SeedBagManager>();
+                string BagVariant = seedBagManager.bagVariant;
 
                 switch (BagVariant)
                 {
@@ -35,15 +35,16 @@ namespace Main.Economy
                         break;
                 }
 
-                if (SeedBag.timesUsed >= 10 && Time.time - timeOnEnter >= minStayingLength && MoneyCounter.moneyNr >= 10)
+                if (seedBagManager.timesUsed >= 50 && Time.time - timeOnEnter >= requiredStayLength && MoneyCounter.moneyNr >= price)
                 {
                     MoneyCounter.moneyNr -= price;
                     MoneyCounter.UpdateMoneyCount();
 
-                    SeedBag.Bought();
+                    SeedBagBuyingHandler seedBagBuyingHandler = collider.gameObject.GetComponent<SeedBagBuyingHandler>();
+
+                    seedBagBuyingHandler.BuyBag(ref seedBagManager.timesUsed);
                 }
             }
-
         }
     }
 }

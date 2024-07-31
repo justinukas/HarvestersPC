@@ -1,9 +1,7 @@
 {
     "name": "Main.Controls",
     "rootNamespace": "Main.Controls",
-    "references": [
-        "GUID:626ac9e70521ad54685d5982bec6bb92"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [
         "Android",

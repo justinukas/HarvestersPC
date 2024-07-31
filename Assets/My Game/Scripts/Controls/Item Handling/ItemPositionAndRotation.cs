@@ -4,7 +4,8 @@ namespace Main.Controls
 {
     public class ItemPositionAndRotation : MonoBehaviour
     {
-        public void UpdateItemPositionAndRotation(string currentItem, GameObject grabbedObject, Transform defaultToolPosition)
+        public Transform defaultToolPosition;
+        public void UpdateItemPositionAndRotation(string currentItem, GameObject grabbedObject)
         {
             if (currentItem == "null" || grabbedObject == null) return;
 
