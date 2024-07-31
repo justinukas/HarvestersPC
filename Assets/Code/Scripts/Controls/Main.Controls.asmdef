@@ -2,7 +2,7 @@
     "name": "Main.Controls",
     "rootNamespace": "Main.Controls",
     "references": [
-        "GUID:35e28ee95ce2e9745b28808ed3e13203"
+        "GUID:626ac9e70521ad54685d5982bec6bb92"
     ],
     "includePlatforms": [],
     "excludePlatforms": [

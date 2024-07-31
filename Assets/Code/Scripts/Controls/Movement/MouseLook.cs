@@ -6,7 +6,12 @@ public class MouseLook : MonoBehaviour
 
     public float mouseSpeed = 1f;
 
-    public void ControlMouse()
+    private void Update()
+    {
+        ControlMouse();
+    }
+
+    private void ControlMouse()
     {
         rotation.y += Input.GetAxis("Mouse X");
         rotation.x += -Input.GetAxis("Mouse Y");

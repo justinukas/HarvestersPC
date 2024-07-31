@@ -11,6 +11,12 @@ public class Movement : MonoBehaviour
     private bool isJumping = false;
     private bool isGrounded;
 
+    private void Update()
+    {
+        MoveCharacterController();
+        Jump();
+    }
+
     public void MoveCharacterController()
     {
         isGrounded = GetComponent<CharacterController>().isGrounded;
@@ -22,7 +28,6 @@ public class Movement : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
         Vector3 move = transform.right * x + transform.forward * z;
-
 
         if (isJumping == true && isGrounded)
         {
@@ -37,14 +42,12 @@ public class Movement : MonoBehaviour
 
     public void Jump()
     {
-        if (isJumping != true)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            isJumping = true;
+            if (isJumping != true)
+            {
+                isJumping = true;
+            }
         }
     }
-
-    /*private void Sprint()
-    {
-
-    }*/
 }

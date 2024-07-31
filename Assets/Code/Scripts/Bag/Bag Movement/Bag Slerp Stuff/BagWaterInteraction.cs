@@ -9,7 +9,7 @@ namespace Main.Bag
 
         private void OnTriggerEnter(Collider collider)
         {
-            if (collider.gameObject.CompareTag("Closed Bag") || collider.gameObject.CompareTag("Open Bag"))
+            if (collider.name == "Open Bag")
             {
                 BagToPlayer.StartMoving();
                 collided = true;
