@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// script is handled by Assets/Scripts/Controls/Controls.cs
 public class Movement : MonoBehaviour
 {
     private readonly float gravity = -9.81f;

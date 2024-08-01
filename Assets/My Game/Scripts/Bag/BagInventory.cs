@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
+// split this script up later
 namespace Main.Bag
 {
     public class BagInventory : MonoBehaviour

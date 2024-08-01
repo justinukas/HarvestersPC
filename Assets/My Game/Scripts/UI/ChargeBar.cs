@@ -15,7 +15,7 @@ namespace Main.Controls
         private GameObject Fill;
         private CanvasGroup ChargeBarsCanvasGroup;
         private Transform MainCamera;
-        private ItemManager ItemHandler;
+        private ItemManager ItemManager;
         private ItemPositionAndRotation ItemPositionAndRotation;
         private Animator BagAnimator;
 
@@ -28,7 +28,7 @@ namespace Main.Controls
             Fill = gameObject.transform.Find("Canvas").Find("Slider").Find("Fill Area").Find("Fill").gameObject;
             ChargeBarsCanvasGroup = gameObject.transform.Find("Canvas").GetComponent<CanvasGroup>();
             MainCamera = Camera.main.transform;
-            ItemHandler = GameObject.Find("Player").GetComponent<ItemManager>();
+            ItemManager = GameObject.Find("Player").GetComponent<ItemManager>();
             ItemPositionAndRotation = GameObject.Find("Player").GetComponent<ItemPositionAndRotation>();
             BagAnimator = Bag.transform.Find("Bag").GetComponent<Animator>();
 
@@ -49,12 +49,12 @@ namespace Main.Controls
         // shows bar when the bag is picked up
         private void FadeInBar()
         {
-            if (ItemHandler.currentItem == "Bag" && ChargeBarsCanvasGroup.alpha < 1f && isFillLocked == false)
+            if (ItemManager.currentItem == "Bag" && ChargeBarsCanvasGroup.alpha < 1f && isFillLocked == false)
             {
                 ChargeBarsCanvasGroup.alpha += 3f * Time.deltaTime;
             }
             // fix for if it gets softlocked
-            else if (ChargeBarsCanvasGroup.alpha < 1f && Slider.value > 0f && ItemHandler.currentItem == "Bag")
+            else if (ChargeBarsCanvasGroup.alpha < 1f && Slider.value > 0f && ItemManager.currentItem == "Bag")
             {
                 ChargeBarsCanvasGroup.alpha = 0f;
                 Slider.value = 0f;
@@ -105,14 +105,14 @@ namespace Main.Controls
             {
                 if (isFillLocked == true && ChargeBarsCanvasGroup.alpha == 1)
                 {
-                    if (BagAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState") && ItemHandler.currentItem != "null")
+                    if (BagAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState") && ItemManager.currentItem != "null")
                     {
                         Bag.transform.position = ItemPositionAndRotation.defaultToolPosition.position + new Vector3(0, 0.314f, 0);
 
-                        ItemHandler.grabbedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-                        ItemHandler.isSwinging = false;
-                        ItemHandler.currentItem = "null";
-                        ItemHandler.grabbedObject = null;
+                        ItemManager.grabbedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                        ItemManager.isSwinging = false;
+                        ItemManager.currentItem = "null";
+                        ItemManager.grabbedObject = null;
 
                         float throwingForce = Slider.value * 10f;
                         Bag.GetComponent<Rigidbody>().AddForce(MainCamera.forward * throwingForce, ForceMode.VelocityChange);
