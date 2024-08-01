@@ -1,46 +1,52 @@
 using UnityEngine;
 
-namespace Main.Farming
+namespace Main.Farming.SeedBags
 {
     public class SeedBagManager : MonoBehaviour
     { 
-        public int timesUsed;
+        [HideInInspector] public int timesUsed;
         [HideInInspector] public string bagVariant;
         [HideInInspector] public GameObject tilledDirt;
 
-        private PlantingRaycastHandler plantingRaycastHandler;
+        [Header("Prefabs For Scripts")]
+        [SerializeField] ParticleSystem plantParticles;
+        [SerializeField] GameObject Wheat;
+        [SerializeField] GameObject Carrot;
+
+        private RaycastHandler raycastHandler;
         private PlantInfoHandler plantInfoHandler;
         private PlantSpawningHandler plantSpawningHandler;
-        private SeedBagColorHandler seedBagColorHandler;
-        private SeedBagSoundHandler seedBagSoundHandler;
-        private SeedBagParticleHandler seedBagParticleHandler;
+        private ColorHandler colorHandler;
+        private SoundHandler soundHandler;
+        private ParticleHandler particleHandler;
 
         private void Start()
         {
-            // renders bag unusable on game start
-            //timesUsed = 50; 
-
-            plantingRaycastHandler = GetComponent<PlantingRaycastHandler>();
+            raycastHandler = GetComponent<RaycastHandler>();
             plantInfoHandler = GetComponent<PlantInfoHandler>();
             plantSpawningHandler = GetComponent<PlantSpawningHandler>();
-            seedBagColorHandler = GetComponent<SeedBagColorHandler>();
-            seedBagSoundHandler = GetComponent<SeedBagSoundHandler>();
-            seedBagParticleHandler = GetComponent<SeedBagParticleHandler>();
+            colorHandler = GetComponent<ColorHandler>();
+            soundHandler = GetComponent<SoundHandler>();
+            particleHandler = GetComponent<ParticleHandler>();
+
+            //renders bag unusable on game start
+            //timesUsed = 50; 
+            //colorHandler.SetColor();
         }
 
         private void Update()
         {
-            plantingRaycastHandler.CheckRaycast(ref timesUsed, ref tilledDirt);
+            raycastHandler.CheckRaycast(ref timesUsed, ref tilledDirt);
         }
 
         // initialized by the raycast check above
         public void InitializePlanting()
         {
-            plantInfoHandler.InitializePlantInfo(ref bagVariant, tilledDirt);
+            plantInfoHandler.InitializePlantInfo(ref bagVariant, tilledDirt, Wheat, Carrot);
             plantSpawningHandler.SpawnPlants(bagVariant, tilledDirt);
-            seedBagColorHandler.FadeBagColor();
-            seedBagSoundHandler.PlayPlantingSFX();
-            seedBagParticleHandler.EmitPlantingParticles(tilledDirt);
+            colorHandler.FadeBagColor();
+            soundHandler.PlayPlantingSFX();
+            particleHandler.EmitPlantingParticles(tilledDirt, plantParticles);
         }
     }
 }

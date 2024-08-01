@@ -19,7 +19,7 @@ namespace Main.Farming
         {
             foreach (ContactPoint contactPoint in collider.contacts) // this foreach is for checking if the collider colliding is the correct one
             {
-                if (collider.gameObject.CompareTag("Dirt") && cooldown <= 0 && GameObject.Find("Player").GetComponent<ItemHandler>().isSwinging == true
+                if (collider.gameObject.CompareTag("Dirt") && cooldown <= 0 && GameObject.Find("Player").GetComponent<ItemManager>().isSwinging == true
                     && contactPoint.thisCollider.gameObject.name == "Head")
 
                 {

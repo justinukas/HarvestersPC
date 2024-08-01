@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Main.Farming
+namespace Main.Farming.SeedBags
 {
     public class PlantSpawningHandler : MonoBehaviour
     {

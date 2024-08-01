@@ -21,6 +21,11 @@ namespace Main.Controls
                         currentItem = grabbedObject.name;
 
                         grabbedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition; // lock rigidbody from moving
+                        
+                        if (grabbedObject.GetComponent<Animator>())
+                        {
+                            Destroy(grabbedObject.GetComponent<Animator>());
+                        }
                     }
                 }
             }

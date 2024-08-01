@@ -1,36 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Main.Farming
+namespace Main.Farming.SeedBags
 {
     public class PlantInfoHandler : MonoBehaviour
     {
-        private List<Vector3> wheatPositionsList = PlantPositions.wheatPositionsList;
-        private List<Vector3> carrotPositionsList = PlantPositions.carrotPositionsList;
-
-        [SerializeField] private GameObject Wheat;
-        [SerializeField] private GameObject Carrot;
-
-        // references for plant parent transforms
-        private Transform WheatParent;
-        private Transform CarrotParent;
-
         public Dictionary<string, (List<Vector3>, Transform, GameObject)> plantInfo;
 
-        public void InitializePlantInfo(ref string bagVariant, GameObject tilledDirt)
+        public void InitializePlantInfo(ref string bagVariant, GameObject tilledDirt, GameObject Wheat, GameObject Carrot)
         {
-            WheatParent = tilledDirt.transform.Find("WheatParent");
-            CarrotParent = tilledDirt.transform.Find("CarrotParent");
+            List<Vector3> wheatPositionsList = PlantPositions.wheatPositionsList;
+            List<Vector3> carrotPositionsList = PlantPositions.carrotPositionsList;
 
-            switch (gameObject.name)
-            {
-                case "Carrot Seed Bag":
-                    bagVariant = "Carrot";
-                    break;
-                case "Wheat Seed Bag":
-                    bagVariant = "Wheat";
-                    break;
-            }
+            Transform WheatParent = tilledDirt.transform.Find("WheatParent");
+            Transform CarrotParent = tilledDirt.transform.Find("CarrotParent");
+
+            // gets the "Carrot" or "Wheat" part from the gameobject name and assigns it to bagVariant
+            string[] _string = gameObject.name.Split(' ');
+            bagVariant = _string[0];
 
             plantInfo = new Dictionary<string, (List<Vector3>, Transform, GameObject)>
             {

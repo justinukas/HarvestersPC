@@ -1,5 +1,5 @@
 using UnityEngine;
-using Main.Farming;
+using Main.Farming.SeedBags;
 
 namespace Main.Economy
 {
@@ -40,7 +40,7 @@ namespace Main.Economy
                     MoneyCounter.moneyNr -= price;
                     MoneyCounter.UpdateMoneyCount();
 
-                    SeedBagBuyingHandler seedBagBuyingHandler = collider.gameObject.GetComponent<SeedBagBuyingHandler>();
+                    BuyingHandler seedBagBuyingHandler = collider.gameObject.GetComponent<BuyingHandler>();
 
                     seedBagBuyingHandler.BuyBag(ref seedBagManager.timesUsed);
                 }

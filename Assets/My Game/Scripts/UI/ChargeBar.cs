@@ -15,7 +15,7 @@ namespace Main.Controls
         private GameObject Fill;
         private CanvasGroup ChargeBarsCanvasGroup;
         private Transform MainCamera;
-        private ItemHandler ItemHandler;
+        private ItemManager ItemHandler;
         private ItemPositionAndRotation ItemPositionAndRotation;
         private Animator BagAnimator;
 
@@ -28,7 +28,7 @@ namespace Main.Controls
             Fill = gameObject.transform.Find("Canvas").Find("Slider").Find("Fill Area").Find("Fill").gameObject;
             ChargeBarsCanvasGroup = gameObject.transform.Find("Canvas").GetComponent<CanvasGroup>();
             MainCamera = Camera.main.transform;
-            ItemHandler = GameObject.Find("Player").GetComponent<ItemHandler>();
+            ItemHandler = GameObject.Find("Player").GetComponent<ItemManager>();
             ItemPositionAndRotation = GameObject.Find("Player").GetComponent<ItemPositionAndRotation>();
             BagAnimator = Bag.transform.Find("Bag").GetComponent<Animator>();
 
