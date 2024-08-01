@@ -1,10 +1,11 @@
+using Main.ItemHandling;
 using UnityEngine;
 using UnityEngine.UI;
 
 
 // split this script up according to single responsibility principle
 
-namespace Main.Controls
+namespace Main.UI
 {
     public class ChargeBar : MonoBehaviour
     {
@@ -16,12 +17,11 @@ namespace Main.Controls
         private CanvasGroup ChargeBarsCanvasGroup;
         private Transform MainCamera;
         private ItemManager ItemManager;
-        private ItemPositionAndRotation ItemPositionAndRotation;
         private Animator BagAnimator;
 
         private bool isFillFull = false;
         private bool isFillLocked = false;
-        
+
         private void Start()
         {
             Slider = gameObject.transform.Find("Canvas").Find("Slider").GetComponent<Slider>();
@@ -29,7 +29,6 @@ namespace Main.Controls
             ChargeBarsCanvasGroup = gameObject.transform.Find("Canvas").GetComponent<CanvasGroup>();
             MainCamera = Camera.main.transform;
             ItemManager = GameObject.Find("Player").GetComponent<ItemManager>();
-            ItemPositionAndRotation = GameObject.Find("Player").GetComponent<ItemPositionAndRotation>();
             BagAnimator = Bag.transform.Find("Bag").GetComponent<Animator>();
 
             ChargeBarsCanvasGroup.alpha = 0f;
@@ -65,7 +64,7 @@ namespace Main.Controls
         // fills bar up and down and changes color accordingly
         private void FillBar()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0))
             {
                 if (isFillLocked == false && ChargeBarsCanvasGroup.alpha == 1)
                 {
@@ -92,31 +91,32 @@ namespace Main.Controls
         // makes chargebar fade out when LMB is released and locks it from changing in value
         private void LockBar()
         {
-            if (Slider.value > 0 && isFillLocked == false)
+            if (!Input.GetMouseButton(0))
             {
-                isFillLocked = true;
-                BagAnimator.SetTrigger("Throw");
+                if (Slider.value > 0 && isFillLocked == false)
+                {
+                    isFillLocked = true;
+                    BagAnimator.SetTrigger("Throw");
+                }
             }
         }
 
         private void ThrowBag()
         {
-            if (Input.GetMouseButtonUp(0))
+            if (isFillLocked == true && ChargeBarsCanvasGroup.alpha == 1)
             {
-                if (isFillLocked == true && ChargeBarsCanvasGroup.alpha == 1)
+                if (BagAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState"))
                 {
-                    if (BagAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState") && ItemManager.currentItem != "null")
-                    {
-                        Bag.transform.position = ItemPositionAndRotation.defaultToolPosition.position + new Vector3(0, 0.314f, 0);
+                    Bag.transform.position = Bag.transform.position + new Vector3(0, 0.314f, 0);
 
-                        ItemManager.grabbedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-                        ItemManager.isSwinging = false;
-                        ItemManager.currentItem = "null";
-                        ItemManager.grabbedObject = null;
+                    ItemManager.grabbedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                    Debug.Log(ItemManager.grabbedObject.name);
+                    ItemManager.isSwinging = false;
+                    ItemManager.currentItem = "null";
+                    ItemManager.grabbedObject = null;
 
-                        float throwingForce = Slider.value * 10f;
-                        Bag.GetComponent<Rigidbody>().AddForce(MainCamera.forward * throwingForce, ForceMode.VelocityChange);
-                    }
+                    float throwingForce = Slider.value * 10f;
+                    Bag.GetComponent<Rigidbody>().AddForce(MainCamera.forward * throwingForce, ForceMode.VelocityChange);
                 }
             }
         }

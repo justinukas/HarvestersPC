@@ -2,8 +2,8 @@
     "name": "Main.Farming",
     "rootNamespace": "Main.Farming",
     "references": [
-        "GUID:b68713a57aaab054c8468c739cceacfc",
-        "GUID:860ba3e9ebf9dfd458bb83266c0fdd1b"
+        "GUID:860ba3e9ebf9dfd458bb83266c0fdd1b",
+        "GUID:3ee68c344ccca3340a4a5c011485eb17"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
