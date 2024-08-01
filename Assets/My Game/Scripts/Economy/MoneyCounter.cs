@@ -3,8 +3,14 @@ using UnityEngine.UI;
 
 public class MoneyCounter : MonoBehaviour
 {
-    public float moneyNr;
+    [HideInInspector] public float moneyNr;
     private string moneyText;
+
+    private void Start()
+    {
+        moneyNr = 100;
+        UpdateMoneyCount();
+    }
 
     public void UpdateMoneyCount()
     {

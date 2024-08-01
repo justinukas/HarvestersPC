@@ -18,10 +18,7 @@ namespace Main.Bag
         // bag's mesh
         private MeshFilter bagMesh;
 
-        private void Start()
-        {
-            bagMesh = gameObject.GetComponent<MeshFilter>();
-        }
+      
 
         // crop counters
         private int carrotCount = 0;
@@ -30,11 +27,15 @@ namespace Main.Bag
         // fullness measurement
         [HideInInspector] public float weight = 0f;
 
-        // money related
-        [HideInInspector] public float value = 0f;
-
 
         [HideInInspector] public bool isBagOpen = true;
+
+
+        private void Start()
+        {
+            bagMesh = gameObject.transform.Find("Bag").Find("Icosphere").GetComponent<MeshFilter>();
+            isBagOpen = true;
+        }
 
         // put carrots in bag
         private void OnCollisionEnter(Collision collider)
@@ -83,7 +84,6 @@ namespace Main.Bag
                 bagMesh.mesh = closedBagMesh;
                 gameObject.tag = "Closed Bag";
 
-                value = weight * 2;
                 weight = 0f;
             }
         }
@@ -100,7 +100,6 @@ namespace Main.Bag
         public void ResetAllCounters()
         {
             OpenBag();
-            value = 0f;
             weight = 0f;
             carrotCount = 0;
             wheatCount = 0;

@@ -10,14 +10,7 @@ namespace Main.ItemHandling
             {
                 if (currentItem != "null")
                 {
-                    if (currentItem == "Scythe" || currentItem == "Axe" || currentItem == "Hoe" || currentItem == "Bag")
-                    {
-                        grabbedObject.transform.Find(currentItem).GetComponent<Animator>().Play("DefaultState");
-                    }
-                    else if (currentItem == "Wheat Seed Bag" || currentItem == "Carrot Seed Bag")
-                    {
-                        grabbedObject.transform.Find("Seed Bag").GetComponent<Animator>().Play("DefaultState");
-                    }
+                    grabbedObject.transform.Find(grabbedObject.name).GetComponent<Animator>().Play($"DefaultState");
                     
                     grabbedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                     isSwinging = false;

@@ -9,13 +9,17 @@ namespace Main.Economy
         [SerializeField] MoneyCounter MoneyCounter;
         [SerializeField] BagToPlayer BagToPlayer;
 
+        private float value;
+
+
         private void OnTriggerEnter(Collider collider)
         {
             if (collider.gameObject.name == "Bag")
             {
                 if (BagInventory.weight > 0)
                 {
-                    MoneyCounter.moneyNr += BagInventory.value;
+                    value = BagInventory.weight * 2;
+                    MoneyCounter.moneyNr += value;
                     MoneyCounter.UpdateMoneyCount();
 
                     BagInventory.ResetAllCounters();

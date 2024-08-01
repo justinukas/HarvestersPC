@@ -9,12 +9,6 @@ namespace Main.Farming
         [SerializeField] BagInventory BagInventory; 
         [SerializeField] ItemManager ItemManager;
 
-        private void Start()
-        {
-            BagInventory = GameObject.Find("Bag").GetComponent<BagInventory>();
-            ItemManager = GameObject.Find("Player").GetComponent<ItemManager>();
-        }
-
         private void OnCollisionEnter(Collision collider)
         {
             foreach (ContactPoint contactPoint in collider.contacts) // this foreach is for checking for the correct local collider, the head of the scythe   

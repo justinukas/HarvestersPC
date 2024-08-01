@@ -29,8 +29,7 @@ namespace Main.ItemHandling
                 case "Bag":
                     offset = new Vector3(0, 0, 0);
                     grabbedObject.transform.rotation = defaultToolPosition.rotation * Quaternion.Euler(0, 0, 0); break;
-                case "Wheat Seed Bag":
-                case "Carrot Seed Bag":
+                case "Seed Bag":
                     offset = new Vector3(0, 0, 0);
                     grabbedObject.transform.rotation = defaultToolPosition.rotation * Quaternion.Euler(0, 180, 0); break;
 

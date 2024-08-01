@@ -26,6 +26,7 @@ namespace Main.ItemHandling
             itemRaycast.CheckRaycast(ref currentItem, ref grabbedObject);
             itemDrop.DropItem(ref currentItem, ref isSwinging, ref grabbedObject);
             itemUse.UseItem(ref currentItem, ref grabbedObject, ref isSwinging);
+            Debug.Log(isSwinging);
         }
 
         private void LateUpdate()

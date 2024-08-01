@@ -4,46 +4,29 @@ namespace Main.ItemHandling
 {
     public class ItemUse : MonoBehaviour
     {
-        Animator currentAnimator;
 
         public void UseItem(ref string currentItem, ref GameObject grabbedObject, ref bool isSwinging)
         {
             if (currentItem == "null" || grabbedObject == null)
                 return;
-
+            
+            Animator currentAnimator = grabbedObject.transform.Find(grabbedObject.name).GetComponent<Animator>();
+            int currentLayer = currentAnimator.GetLayerIndex(currentItem);
             if (Input.GetMouseButtonDown(0))
             {
-                if (currentItem == "Scythe" || currentItem == "Axe" || currentItem == "Hoe")
+                if (currentAnimator.GetCurrentAnimatorStateInfo(currentLayer).IsName("DefaultState"))
                 {
-                    currentAnimator = grabbedObject.transform.Find(currentItem).GetComponent<Animator>();
-                    if (currentAnimator.GetCurrentAnimatorStateInfo(0).IsName($"{currentItem} Swing") == false)
-                    {
-                        currentAnimator.Play($"{currentItem} Swing");
-                    }
-                }
+                    currentAnimator.Play($"{currentItem}.UseItem");
 
-                else if (currentItem == "Bag")
-                {
-                    currentAnimator = grabbedObject.transform.Find(currentItem).GetComponent<Animator>();
-                    if (currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("Charge Up Bag Throw") == false && GameObject.Find("Throwing Charge Bar").transform.Find("Canvas").GetComponent<CanvasGroup>().alpha == 1)
+                    if (grabbedObject.transform.Find(grabbedObject.name).Find("Seed Particles"))
                     {
-                        currentAnimator.Play("Charge Up Bag Throw");
-                    }
-                }
-
-                else if (currentItem == "Wheat Seed Bag" || currentItem == "Carrot Seed Bag")
-                {
-                    currentAnimator = grabbedObject.transform.Find("Seed Bag").GetComponent<Animator>();
-                    if (currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("Plant Seeds") == false && currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("Plant Seeds_Return") == false)
-                    {
-                        currentAnimator.Play("Plant Seeds");
-                        grabbedObject.transform.Find("Seed Bag").Find("Seed Particles").GetComponent<ParticleSystem>().Play();
+                        grabbedObject.transform.Find(grabbedObject.name).Find("Seed Particles").GetComponent<ParticleSystem>().Play();
                     }
                 }
             }
 
             if (currentItem == "Scythe" || currentItem == "Axe" || currentItem == "Hoe")
-            { isSwinging = currentAnimator.GetCurrentAnimatorStateInfo(0).IsName($"{currentItem} Swing"); }
+            { isSwinging = currentAnimator.GetCurrentAnimatorStateInfo(currentLayer).IsName($"{currentItem}.Swing {currentItem}"); }
         }
     }
 }

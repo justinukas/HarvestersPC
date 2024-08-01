@@ -26,7 +26,7 @@ namespace Main.Farming.SeedBags
         {
             if (r <= rDepletedBag)
             {
-                var bagMaterials = gameObject.transform.Find("Seed Bag").GetComponent<Renderer>().materials;
+                var bagMaterials = gameObject.transform.Find(gameObject.name).GetComponent<Renderer>().materials;
                 bagMaterials[0].color = new Color(r, 0.396f, 0.0666f);
             }
         }

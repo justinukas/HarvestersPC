@@ -68,7 +68,7 @@ namespace Main.UI
             {
                 if (isFillLocked == false && ChargeBarsCanvasGroup.alpha == 1)
                 {
-                    if (BagAnimator.GetCurrentAnimatorStateInfo(0).IsName("Charge Up Bag Throw") || BagAnimator.GetCurrentAnimatorStateInfo(0).IsName("Hold Charge"))
+                    if (BagAnimator.GetCurrentAnimatorStateInfo(3).IsName("Charge Up Bag Throw") || BagAnimator.GetCurrentAnimatorStateInfo(3).IsName("Hold Charge"))
                     {
                         if (Slider.value == 1) isFillFull = true;
                         if (Slider.value == 0) isFillFull = false;
@@ -105,12 +105,11 @@ namespace Main.UI
         {
             if (isFillLocked == true && ChargeBarsCanvasGroup.alpha == 1)
             {
-                if (BagAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState"))
+                if (BagAnimator.GetCurrentAnimatorStateInfo(3).IsName("DefaultState"))
                 {
                     Bag.transform.position = Bag.transform.position + new Vector3(0, 0.314f, 0);
 
                     ItemManager.grabbedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-                    Debug.Log(ItemManager.grabbedObject.name);
                     ItemManager.isSwinging = false;
                     ItemManager.currentItem = "null";
                     ItemManager.grabbedObject = null;
@@ -124,7 +123,7 @@ namespace Main.UI
         // hide charge bar after animation is finished and bar is locked
         private void HideBar()
         {
-            if (ChargeBarsCanvasGroup.alpha <= 1f && isFillLocked == true && BagAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState"))
+            if (ChargeBarsCanvasGroup.alpha <= 1f && isFillLocked == true && BagAnimator.GetCurrentAnimatorStateInfo(3).IsName("DefaultState"))
             {
                 ChargeBarsCanvasGroup.alpha -= 3f * Time.deltaTime;
                 if (ChargeBarsCanvasGroup.alpha == 0f)

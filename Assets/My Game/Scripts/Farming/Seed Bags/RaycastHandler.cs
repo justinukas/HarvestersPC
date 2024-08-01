@@ -9,13 +9,13 @@ namespace Main.Farming.SeedBags
 
         private void Start()
         {
-            animator = transform.Find("Seed Bag").GetComponent<Animator>();
+            animator = transform.Find(gameObject.name).GetComponent<Animator>();
             seedBagManager = GetComponent<SeedBagManager>();
         }
 
         public void CheckRaycast(ref int timesUsed, ref GameObject tilledDirt)
         {
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Plant Seeds") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.6f)
+            if (animator.GetCurrentAnimatorStateInfo(4).IsName("Plant Seeds") && animator.GetCurrentAnimatorStateInfo(4).normalizedTime >= 0.6f)
             {
                 Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
                 LayerMask TilledDirt = 1 << 9;
@@ -30,7 +30,6 @@ namespace Main.Farming.SeedBags
                         timesUsed++;
                         seedBagManager.InitializePlanting();
                         plantingEnabler.plantingAllowed = false;
-
                     }
                 }
             }

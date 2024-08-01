@@ -18,14 +18,26 @@ namespace Main.ItemHandling
 
                     if (ItemNames.itemNames.Contains(grabbedObject.name))
                     {
-                        currentItem = grabbedObject.name;
+                        switch (grabbedObject.name)
+                        {
+                            case "Scythe":
+                            case "Hoe":
+                            case "Axe":
+                            case "Bag":
+                                currentItem = grabbedObject.name;
+                                break;
+                            case "Wheat Seed Bag":
+                            case "Carrot Seed Bag":
+                                currentItem = "Seed Bag";
+                                break;
+                        }
 
                         grabbedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition; // lock rigidbody from moving
                         
-                        if (grabbedObject.GetComponent<Animator>())
+                        if (currentItem == "Seed Bag" && grabbedObject.GetComponent<Animator>())
                         {
                             Destroy(grabbedObject.GetComponent<Animator>());
-                            Destroy(grabbedObject.transform.Find("Item particle"));
+                            Destroy(grabbedObject.transform.Find("Item particle").gameObject);
                         }
                     }
                 }
