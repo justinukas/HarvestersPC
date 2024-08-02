@@ -7,10 +7,8 @@ namespace Main.Economy
     {
         [SerializeField] BagInventory BagInventory;
         [SerializeField] MoneyCounter MoneyCounter;
-        [SerializeField] BagToPlayer BagToPlayer;
 
         private float value;
-
 
         private void OnTriggerEnter(Collider collider)
         {
@@ -23,7 +21,6 @@ namespace Main.Economy
                     MoneyCounter.UpdateMoneyCount();
 
                     BagInventory.ResetAllCounters();
-                    BagToPlayer.StartMoving();
                     BoatLeave();
                 }
             }
@@ -33,18 +30,6 @@ namespace Main.Economy
         {
             Animator boatAnimator = gameObject.transform.parent.GetComponent<Animator>();
             boatAnimator.SetTrigger("triggerLeave");
-        }
-
-        private void Update()
-        {
-            if (BagToPlayer.move == true)
-            {
-                gameObject.GetComponent<BoxCollider>().enabled = false;
-            }
-            else if (BagToPlayer.move == false)
-            {
-                gameObject.GetComponent<BoxCollider>().enabled = true;
-            }
         }
     }
 }

@@ -11,25 +11,20 @@ namespace Main.UI
     {
         [SerializeField] private Gradient Gradient;
         [SerializeField] private GameObject Bag;
-
-        private Slider Slider;
-        private GameObject Fill;
-        private CanvasGroup ChargeBarsCanvasGroup;
+        [SerializeField] private ItemManager ItemManager;
+        [SerializeField] private Animator BagAnimator;
+        [SerializeField] private Slider Slider;
+        [SerializeField] private GameObject Fill;
+        [SerializeField] private CanvasGroup ChargeBarsCanvasGroup;
         private Transform MainCamera;
-        private ItemManager ItemManager;
-        private Animator BagAnimator;
+
 
         private bool isFillFull = false;
         private bool isFillLocked = false;
 
         private void Start()
         {
-            Slider = gameObject.transform.Find("Canvas").Find("Slider").GetComponent<Slider>();
-            Fill = gameObject.transform.Find("Canvas").Find("Slider").Find("Fill Area").Find("Fill").gameObject;
-            ChargeBarsCanvasGroup = gameObject.transform.Find("Canvas").GetComponent<CanvasGroup>();
             MainCamera = Camera.main.transform;
-            ItemManager = GameObject.Find("Player").GetComponent<ItemManager>();
-            BagAnimator = Bag.transform.Find("Bag").GetComponent<Animator>();
 
             ChargeBarsCanvasGroup.alpha = 0f;
             Slider.maxValue = 1;
@@ -68,7 +63,7 @@ namespace Main.UI
             {
                 if (isFillLocked == false && ChargeBarsCanvasGroup.alpha == 1)
                 {
-                    if (BagAnimator.GetCurrentAnimatorStateInfo(3).IsName("Charge Up Bag Throw") || BagAnimator.GetCurrentAnimatorStateInfo(3).IsName("Hold Charge"))
+                    if (BagAnimator.GetCurrentAnimatorStateInfo(0).IsName("Charge Up Bag Throw") || BagAnimator.GetCurrentAnimatorStateInfo(0).IsName("Hold Charge"))
                     {
                         if (Slider.value == 1) isFillFull = true;
                         if (Slider.value == 0) isFillFull = false;
@@ -105,7 +100,7 @@ namespace Main.UI
         {
             if (isFillLocked == true && ChargeBarsCanvasGroup.alpha == 1)
             {
-                if (BagAnimator.GetCurrentAnimatorStateInfo(3).IsName("DefaultState"))
+                if (BagAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState"))
                 {
                     Bag.transform.position = Bag.transform.position + new Vector3(0, 0.314f, 0);
 
@@ -123,7 +118,7 @@ namespace Main.UI
         // hide charge bar after animation is finished and bar is locked
         private void HideBar()
         {
-            if (ChargeBarsCanvasGroup.alpha <= 1f && isFillLocked == true && BagAnimator.GetCurrentAnimatorStateInfo(3).IsName("DefaultState"))
+            if (ChargeBarsCanvasGroup.alpha <= 1f && isFillLocked == true && BagAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState"))
             {
                 ChargeBarsCanvasGroup.alpha -= 3f * Time.deltaTime;
                 if (ChargeBarsCanvasGroup.alpha == 0f)

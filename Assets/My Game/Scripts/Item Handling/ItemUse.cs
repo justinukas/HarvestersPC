@@ -9,14 +9,13 @@ namespace Main.ItemHandling
         {
             if (currentItem == "null" || grabbedObject == null)
                 return;
-            
+
             Animator currentAnimator = grabbedObject.transform.Find(grabbedObject.name).GetComponent<Animator>();
-            int currentLayer = currentAnimator.GetLayerIndex(currentItem);
             if (Input.GetMouseButtonDown(0))
             {
-                if (currentAnimator.GetCurrentAnimatorStateInfo(currentLayer).IsName("DefaultState"))
+                if (currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState"))
                 {
-                    currentAnimator.Play($"{currentItem}.UseItem");
+                    currentAnimator.Play("UseItem");
 
                     if (grabbedObject.transform.Find(grabbedObject.name).Find("Seed Particles"))
                     {
@@ -26,7 +25,7 @@ namespace Main.ItemHandling
             }
 
             if (currentItem == "Scythe" || currentItem == "Axe" || currentItem == "Hoe")
-            { isSwinging = currentAnimator.GetCurrentAnimatorStateInfo(currentLayer).IsName($"{currentItem}.Swing {currentItem}"); }
+            { isSwinging = currentAnimator.GetCurrentAnimatorStateInfo(0).IsName($"Swing {currentItem}"); }
         }
     }
 }

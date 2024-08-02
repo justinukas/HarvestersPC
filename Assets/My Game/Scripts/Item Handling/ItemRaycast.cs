@@ -7,6 +7,7 @@ namespace Main.ItemHandling
     {
         public void CheckRaycast(ref string currentItem, ref GameObject grabbedObject)
         {
+            if (currentItem != null) Debug.Log(currentItem);
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             LayerMask Grabbables = 1 << 6;
 
