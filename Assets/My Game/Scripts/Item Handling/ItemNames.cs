@@ -4,7 +4,8 @@ namespace Main.ItemHandling
 {
     public static class ItemNames
     {
-        public static string[] itemNames = new string[] { "Scythe", "Axe", "Hoe", "Bag", "Carrot Seed Bag", "Wheat Seed Bag" };
+        public static string[] itemNames = new string[] { "Scythe", "Axe", "Hoe", "Bag", "Carrot Seed Bag", "Wheat Seed Bag" /* . . . */ };
+        public static string[] plantNames = new string[] { "Carrot" /* . . . */ };
     }
 
 

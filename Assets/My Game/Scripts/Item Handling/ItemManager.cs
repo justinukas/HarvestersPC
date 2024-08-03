@@ -4,13 +4,15 @@ namespace Main.ItemHandling
 {
     public class ItemManager : MonoBehaviour
     {
-        [HideInInspector] public bool isSwinging = false;
         [HideInInspector] public string currentItem = "null";
-        [HideInInspector] public GameObject grabbedObject;
+        [HideInInspector] public string currentPlant = "null";
+        [HideInInspector] public GameObject grabbedTool;
+        [HideInInspector] public GameObject grabbedPlant;
         
         private ItemRaycast itemRaycast;
         private ItemDrop itemDrop;
         private ItemPositionAndRotation itemPositionAndRotation;
+        private PlantPositionAndRotation plantPositionAndRotation;
         private ItemUse itemUse;
 
         private void Start()
@@ -19,20 +21,27 @@ namespace Main.ItemHandling
             itemDrop = GetComponent<ItemDrop>();
             itemPositionAndRotation = GetComponent<ItemPositionAndRotation>();
             itemUse = GetComponent<ItemUse>();
+            plantPositionAndRotation = GetComponent<PlantPositionAndRotation>();
         }
 
         private void Update()
         {
-            itemRaycast.CheckRaycast(ref currentItem, ref grabbedObject);
-            itemDrop.DropItem(ref currentItem, ref isSwinging, ref grabbedObject);
-            itemUse.UseItem(ref currentItem, ref grabbedObject, ref isSwinging);
+            itemRaycast.CheckRaycast(ref currentItem, ref grabbedTool, ref currentPlant, ref grabbedPlant);
+            itemDrop.DropItem(ref currentItem, ref grabbedTool, ref currentPlant, ref grabbedPlant);
+            itemUse.UseItem(currentItem, grabbedTool, grabbedPlant);
+            Debug.Log(currentPlant);
+            Debug.Log(grabbedPlant);
         }
 
         private void LateUpdate()
         {
-            if (grabbedObject != null)
+            if (grabbedTool != null)
             {
-                itemPositionAndRotation.UpdateItemPositionAndRotation(currentItem, grabbedObject);
+                itemPositionAndRotation.UpdateItemPositionAndRotation(currentItem, grabbedTool);
+            }
+            if (grabbedPlant != null)
+            {
+                plantPositionAndRotation.UpdatePlantPositionAndRotation(currentPlant, grabbedPlant);
             }
         }
     }

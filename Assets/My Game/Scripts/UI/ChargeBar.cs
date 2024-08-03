@@ -104,10 +104,9 @@ namespace Main.UI
                 {
                     Bag.transform.position = Bag.transform.position + new Vector3(0, 0.314f, 0);
 
-                    ItemManager.grabbedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-                    ItemManager.isSwinging = false;
+                    ItemManager.grabbedTool.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                     ItemManager.currentItem = "null";
-                    ItemManager.grabbedObject = null;
+                    ItemManager.grabbedTool = null;
 
                     float throwingForce = Slider.value * 10f;
                     Bag.GetComponent<Rigidbody>().AddForce(MainCamera.forward * throwingForce, ForceMode.VelocityChange);

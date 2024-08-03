@@ -4,22 +4,30 @@ namespace Main.Controls
 {
     public class MouseLook : MonoBehaviour
     {
-        Quaternion rotation;
+        Vector2 mousePosition;
 
-        public float mouseSpeed = 1f;
+        public float sensitivity = 1f;
+
+        private void Start()
+        {
+            mousePosition.y = 90;
+        }
 
         private void LateUpdate()
         {
-            ControlMouse();
+            ControlCamera();
         }
 
-        private void ControlMouse()
+        // this scuffed af but it works idk
+        private void ControlCamera()
         {
-            rotation.y += Input.GetAxis("Mouse X");
-            rotation.x += -Input.GetAxis("Mouse Y");
-            rotation.x = Mathf.Clamp(rotation.x, -90f, 90f);
-            transform.rotation = Quaternion.Euler(0, rotation.y * mouseSpeed, 0);
-            Camera.main.transform.localRotation = Quaternion.Euler(rotation.x * mouseSpeed, 0, 0);
+            mousePosition.x -= Input.GetAxis("Mouse Y") * sensitivity;
+            mousePosition.y += Input.GetAxis("Mouse X") * sensitivity;
+
+            mousePosition.x = Mathf.Clamp(mousePosition.x, -90f, 90f);
+
+            transform.localRotation = Quaternion.Euler(0, mousePosition.y, 0);
+            Camera.main.transform.localRotation = Quaternion.Euler(mousePosition.x, 0, 0);
         }
     }
 }

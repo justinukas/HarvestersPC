@@ -17,7 +17,7 @@ namespace Main.Farming
                 Harvestability Harvestability = contactPoint.otherCollider.gameObject.GetComponent<Harvestability>();
 
                 if (collider.gameObject.CompareTag("WheatSmall") && contactPoint.thisCollider.gameObject.name == "Head" && BagInventory.isBagOpen == true &&
-                    Harvestability.isHarvestable == true && ItemManager.isSwinging == true)
+                    Harvestability.isHarvestable == true && transform.Find("Scythe").GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Swing Scythe"))
                 {
                     collider.gameObject.tag = "HarvestedWheat";
                     collider.gameObject.GetComponent<Rigidbody>().isKinematic = false;

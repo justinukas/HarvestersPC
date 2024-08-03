@@ -5,14 +5,14 @@ namespace Main.ItemHandling
     public class ItemUse : MonoBehaviour
     {
 
-        public void UseItem(ref string currentItem, ref GameObject grabbedObject, ref bool isSwinging)
+        public void UseItem(string currentItem, GameObject grabbedObject, GameObject grabbedPlant)
         {
-            if (currentItem == "null" || grabbedObject == null)
-                return;
+            if (currentItem == "null" || grabbedObject == null) return;
 
-            Animator currentAnimator = grabbedObject.transform.Find(grabbedObject.name).GetComponent<Animator>();
+            Animator currentAnimator;
             if (Input.GetMouseButtonDown(0))
             {
+                currentAnimator = grabbedObject.transform.Find(grabbedObject.name).GetComponent<Animator>();
                 if (currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState"))
                 {
                     currentAnimator.Play("UseItem");
@@ -24,8 +24,14 @@ namespace Main.ItemHandling
                 }
             }
 
-            if (currentItem == "Scythe" || currentItem == "Axe" || currentItem == "Hoe")
-            { isSwinging = currentAnimator.GetCurrentAnimatorStateInfo(0).IsName($"Swing {currentItem}"); }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                currentAnimator = grabbedPlant.transform.Find(grabbedPlant.name).GetComponent<Animator>();
+                if (currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState"))
+                {
+                    currentAnimator.Play("DepositPlant");
+                }
+            }
         }
     }
 }
