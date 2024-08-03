@@ -4,7 +4,7 @@ namespace Main.Controls
 {
     public class MouseLook : MonoBehaviour
     {
-        Vector2 rotation = Vector2.zero;
+        Quaternion rotation;
 
         public float mouseSpeed = 1f;
 
@@ -18,7 +18,7 @@ namespace Main.Controls
             rotation.y += Input.GetAxis("Mouse X");
             rotation.x += -Input.GetAxis("Mouse Y");
             rotation.x = Mathf.Clamp(rotation.x, -90f, 90f);
-            transform.eulerAngles = new Vector2(0, rotation.y * mouseSpeed);
+            transform.rotation = Quaternion.Euler(0, rotation.y * mouseSpeed, 0);
             Camera.main.transform.localRotation = Quaternion.Euler(rotation.x * mouseSpeed, 0, 0);
         }
     }
