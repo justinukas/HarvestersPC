@@ -5,37 +5,51 @@ namespace Main.ItemHandling
     public class ItemPositionAndRotation : MonoBehaviour
     {
         Vector3 offsetItem;
+        Vector3 offsetPlant;
 
         [SerializeField] private Transform defaultToolPosition;
+        [SerializeField] private Transform defaultPlantPosition;
 
-        public void UpdateItemPositionAndRotation(string currentItem, GameObject grabbedTool)
+        public void UpdateItemPositionAndRotation(string currentItem, GameObject grabbedTool, string currentPlant, GameObject grabbedPlant)
         {
-            if (currentItem == "null" || grabbedTool == null) return;
-
             // set offsets & rotations
-            switch (currentItem)
+            if (grabbedTool != null)
             {
-                case "Scythe":
-                    offsetItem = new Vector3(0, 0, 0);
-                    grabbedTool.transform.rotation = defaultToolPosition.rotation * Quaternion.Euler(-90, 180, 90); break;
+                switch (currentItem)
+                {
+                    case "Scythe":
+                        offsetItem = new Vector3(0, 0, 0);
+                        grabbedTool.transform.rotation = defaultToolPosition.rotation * Quaternion.Euler(-90, 180, 90); break;
 
-                case "Axe":
-                    offsetItem = new Vector3(0, 0, 0);
-                    grabbedTool.transform.rotation = defaultToolPosition.rotation; break;
+                    case "Axe":
+                        offsetItem = new Vector3(0, 0, 0);
+                        grabbedTool.transform.rotation = defaultToolPosition.rotation; break;
 
-                case "Hoe":
-                    offsetItem = new Vector3(0, 0, 0);
-                    grabbedTool.transform.rotation = defaultToolPosition.rotation * Quaternion.Euler(0, -90, 0); break;
+                    case "Hoe":
+                        offsetItem = new Vector3(0, 0, 0);
+                        grabbedTool.transform.rotation = defaultToolPosition.rotation * Quaternion.Euler(0, -90, 0); break;
 
-                case "Bag":
-                    offsetItem = new Vector3(0, 0, 0);
-                    grabbedTool.transform.rotation = defaultToolPosition.rotation * Quaternion.Euler(0, 0, 0); break;
+                    case "Bag":
+                        offsetItem = new Vector3(0, 0, 0);
+                        grabbedTool.transform.rotation = defaultToolPosition.rotation * Quaternion.Euler(0, 0, 0); break;
 
-                case "Seed Bag":
-                    offsetItem = new Vector3(0, 0, 0);
-                    grabbedTool.transform.rotation = defaultToolPosition.rotation * Quaternion.Euler(0, 180, 0); break;
+                    case "Seed Bag":
+                        offsetItem = new Vector3(0, 0, 0);
+                        grabbedTool.transform.rotation = defaultToolPosition.rotation * Quaternion.Euler(0, 180, 0); break;
+                }
+                grabbedTool.transform.position = defaultToolPosition.position + offsetItem;
             }
-            grabbedTool.transform.position = defaultToolPosition.position + offsetItem;
+           
+            if (grabbedPlant != null)
+            {
+                switch (currentPlant)
+                {
+                    case "Carrot":
+                        offsetPlant = new Vector3(0, 0, 0);
+                        grabbedPlant.transform.rotation = defaultPlantPosition.rotation; break;
+                }
+                grabbedPlant.transform.position = defaultPlantPosition.position + offsetPlant;
+            }
         }
     }
 }

@@ -22,7 +22,8 @@ namespace Main.ItemHandling
             {
                 if (currentPlant != "null")
                 {
-                    //grabbedPlant.transform.Find(grabbedPlant.name).GetComponent<Animator>().Play("DefaultState");
+                    grabbedPlant.transform.Find(grabbedPlant.name).GetComponent<Animator>().Play("DefaultState");
+                    Destroy(grabbedPlant.transform.Find(currentPlant).GetComponent<Animator>());
 
                     grabbedPlant.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                     currentPlant = "null";

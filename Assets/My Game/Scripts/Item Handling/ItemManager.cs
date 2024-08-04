@@ -12,7 +12,6 @@ namespace Main.ItemHandling
         private ItemRaycast itemRaycast;
         private ItemDrop itemDrop;
         private ItemPositionAndRotation itemPositionAndRotation;
-        private PlantPositionAndRotation plantPositionAndRotation;
         private ItemUse itemUse;
 
         private void Start()
@@ -21,7 +20,6 @@ namespace Main.ItemHandling
             itemDrop = GetComponent<ItemDrop>();
             itemPositionAndRotation = GetComponent<ItemPositionAndRotation>();
             itemUse = GetComponent<ItemUse>();
-            plantPositionAndRotation = GetComponent<PlantPositionAndRotation>();
         }
 
         private void Update()
@@ -29,20 +27,11 @@ namespace Main.ItemHandling
             itemRaycast.CheckRaycast(ref currentItem, ref grabbedTool, ref currentPlant, ref grabbedPlant);
             itemDrop.DropItem(ref currentItem, ref grabbedTool, ref currentPlant, ref grabbedPlant);
             itemUse.UseItem(currentItem, grabbedTool, grabbedPlant);
-            Debug.Log(currentPlant);
-            Debug.Log(grabbedPlant);
         }
 
         private void LateUpdate()
         {
-            if (grabbedTool != null)
-            {
-                itemPositionAndRotation.UpdateItemPositionAndRotation(currentItem, grabbedTool);
-            }
-            if (grabbedPlant != null)
-            {
-                plantPositionAndRotation.UpdatePlantPositionAndRotation(currentPlant, grabbedPlant);
-            }
+            itemPositionAndRotation.UpdateItemPositionAndRotation(currentItem, grabbedTool, currentPlant, grabbedPlant);
         }
     }
 }

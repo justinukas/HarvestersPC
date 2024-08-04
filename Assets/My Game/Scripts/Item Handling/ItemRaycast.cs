@@ -5,6 +5,8 @@ namespace Main.ItemHandling
 {
     public class ItemRaycast : MonoBehaviour
     {
+        [SerializeField] private RuntimeAnimatorController controller;
+
         public void CheckRaycast(ref string currentItem, ref GameObject grabbedTool, ref string currentPlant, ref GameObject grabbedPlant)
         {
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
@@ -44,6 +46,9 @@ namespace Main.ItemHandling
 
                             grabbedPlant.transform.SetParent(null);
                             currentPlant = grabbedPlant.name;
+
+                            Animator plantAnimator = grabbedPlant.transform.Find(currentPlant).gameObject.AddComponent<Animator>();
+                            plantAnimator.runtimeAnimatorController = controller;
 
                             grabbedPlant.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
                         }
