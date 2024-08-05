@@ -4,8 +4,12 @@ namespace Main.ItemHandling
 {
     public class ItemUse : MonoBehaviour
     {
-
-        public void UseItem(string currentItem, GameObject grabbedObject, GameObject grabbedPlant)
+        PlantDeposit PlantDeposit;
+        private void Start()
+        {
+            PlantDeposit = GetComponent<PlantDeposit>();
+        }
+        public void UseItem(string currentItem, GameObject grabbedObject, ref string currentPlant, ref GameObject grabbedPlant)
         {
             Animator currentAnimator;
             if (Input.GetMouseButtonDown(0))
@@ -17,7 +21,7 @@ namespace Main.ItemHandling
                     {
                         currentAnimator.Play("UseItem");
 
-                        if (grabbedObject.transform.Find(grabbedObject.name).Find("Seed Particles"))
+                        if (currentItem == "Seed Bag")
                         {
                             grabbedObject.transform.Find(grabbedObject.name).Find("Seed Particles").GetComponent<ParticleSystem>().Play();
                         }
@@ -33,6 +37,7 @@ namespace Main.ItemHandling
                     if (currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState"))
                     {
                         currentAnimator.Play("UsePlant");
+                        StartCoroutine(PlantDeposit.DepositPlant());
                     }
                 }
             }

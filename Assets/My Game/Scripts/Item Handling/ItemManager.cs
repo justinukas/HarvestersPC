@@ -8,6 +8,8 @@ namespace Main.ItemHandling
         [HideInInspector] public string currentPlant = "null";
         [HideInInspector] public GameObject grabbedTool;
         [HideInInspector] public GameObject grabbedPlant;
+        [SerializeField] public Transform defaultToolPosition;
+        [SerializeField] public Transform defaultPlantPosition;
         
         private ItemRaycast itemRaycast;
         private ItemDrop itemDrop;
@@ -26,12 +28,12 @@ namespace Main.ItemHandling
         {
             itemRaycast.CheckRaycast(ref currentItem, ref grabbedTool, ref currentPlant, ref grabbedPlant);
             itemDrop.DropItem(ref currentItem, ref grabbedTool, ref currentPlant, ref grabbedPlant);
-            itemUse.UseItem(currentItem, grabbedTool, grabbedPlant);
+            itemUse.UseItem(currentItem, grabbedTool, ref currentPlant, ref grabbedPlant);
         }
 
         private void LateUpdate()
         {
-            itemPositionAndRotation.UpdateItemPositionAndRotation(currentItem, grabbedTool, currentPlant, grabbedPlant);
+            itemPositionAndRotation.UpdateItemPositionAndRotation(currentItem, grabbedTool, currentPlant, grabbedPlant, defaultToolPosition, defaultPlantPosition);
         }
     }
 }

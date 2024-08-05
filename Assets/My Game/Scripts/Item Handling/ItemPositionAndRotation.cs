@@ -7,10 +7,7 @@ namespace Main.ItemHandling
         //Vector3 offsetItem = Vector3.zero;
         //Vector3 offsetPlant = Vector3.zero;
 
-        [SerializeField] private Transform defaultToolPosition;
-        [SerializeField] private Transform defaultPlantPosition;
-
-        public void UpdateItemPositionAndRotation(string currentItem, GameObject grabbedTool, string currentPlant, GameObject grabbedPlant)
+        public void UpdateItemPositionAndRotation(string currentItem, GameObject grabbedTool, string currentPlant, GameObject grabbedPlant, Transform defaultToolPosition, Transform defaultPlantPosition)
         {
             // set offsets & rotations
             if (grabbedTool != null)
