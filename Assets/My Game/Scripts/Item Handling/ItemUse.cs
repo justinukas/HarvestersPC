@@ -27,7 +27,7 @@ namespace Main.ItemHandling
 
             if (Input.GetKeyDown(KeyCode.F))
             {
-                if (grabbedPlant != null)
+                if (grabbedPlant != null && currentItem == "Bag")
                 {
                     currentAnimator = grabbedPlant.transform.Find(grabbedPlant.name).GetComponent<Animator>();
                     if (currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState"))

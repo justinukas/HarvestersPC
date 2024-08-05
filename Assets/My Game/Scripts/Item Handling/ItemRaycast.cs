@@ -20,6 +20,8 @@ namespace Main.ItemHandling
                     {
                         if (ItemNames.itemNames.Contains(hit.collider.gameObject.name))
                         {
+                            if (hit.collider.gameObject.name != "Bag" && currentPlant != "null") return; // makes it so you cant grab a tool thats not a bag while holding a plant
+
                             grabbedTool = hit.collider.gameObject;
 
                             if (grabbedTool.name != "Wheat Seed Bag" || grabbedTool.name != "Carrot Seed Bag")

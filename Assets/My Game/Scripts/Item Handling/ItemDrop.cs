@@ -8,19 +8,27 @@ namespace Main.ItemHandling
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                if (currentItem != "null")
+                // if an item and a plant are equipped at the same time, drop the plant first.
+                if (currentItem != "null" && currentPlant != "null")
+                {
+                    grabbedPlant.transform.Find(grabbedPlant.name).GetComponent<Animator>().Play("DefaultState");
+                    Destroy(grabbedPlant.transform.Find(currentPlant).GetComponent<Animator>());
+
+                    grabbedPlant.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                    currentPlant = "null";
+                    grabbedPlant = null;
+                }
+
+                else if (currentItem != "null")
                 {
                     grabbedObject.transform.Find(grabbedObject.name).GetComponent<Animator>().Play("DefaultState");
-                    
+
                     grabbedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                     currentItem = "null";
                     grabbedObject = null;
-
                 }
-            }
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                if (currentPlant != "null")
+
+                else if (currentPlant != "null")
                 {
                     grabbedPlant.transform.Find(grabbedPlant.name).GetComponent<Animator>().Play("DefaultState");
                     Destroy(grabbedPlant.transform.Find(currentPlant).GetComponent<Animator>());
