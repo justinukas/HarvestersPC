@@ -13,7 +13,7 @@ namespace Main.Controls
             mousePosition.y = 90;
         }
 
-        private void LateUpdate()
+        private void Update()
         {
             ControlCamera();
         }

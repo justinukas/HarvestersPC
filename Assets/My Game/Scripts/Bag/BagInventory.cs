@@ -41,7 +41,6 @@ namespace Main.Bag
         {
             if (isBagOpen && collider.gameObject.CompareTag("Carrot") && collider.gameObject.transform.parent == null)
             {
-                Destroy(collider.gameObject.transform.Find(collider.gameObject.name).gameObject);
                 carrotCount += 1;
                 string carrotCounterText = carrotCount.ToString();
 

@@ -5,6 +5,7 @@ namespace Main.ItemHandling
 {
     public class PlantDeposit : MonoBehaviour
     {
+        [SerializeField] MeshCollider bagCollider;
         ItemManager itemManager;
         private void Start()
         {
@@ -13,8 +14,9 @@ namespace Main.ItemHandling
 
         public IEnumerator DepositPlant()
         {
+            bagCollider.enabled = false;
             yield return new WaitForSeconds(0.98f);
-            itemManager.grabbedPlant.transform.position = itemManager.defaultToolPosition.position;
+            bagCollider.enabled = true;
             
             itemManager.grabbedPlant = null;
             itemManager.currentPlant = "null";
