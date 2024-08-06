@@ -1,7 +1,11 @@
 {
     "name": "Main.ItemHandling",
     "rootNamespace": "Main.ItemHandling",
-    "references": [],
+    "references": [
+        "GUID:b240f92b9511df64c8c51af85e81492b",
+        "GUID:860ba3e9ebf9dfd458bb83266c0fdd1b",
+        "GUID:43108cffe4e0ac04e9dd07118d08c533"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

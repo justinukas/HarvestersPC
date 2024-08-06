@@ -1,4 +1,6 @@
 using UnityEngine;
+using Main.Farming.SeedBags;
+using Main.Bag;
 
 namespace Main.ItemHandling
 {
@@ -8,22 +10,23 @@ namespace Main.ItemHandling
         private void Start()
         {
             PlantDeposit = GetComponent<PlantDeposit>();
+
         }
-        public void UseItem(string currentItem, GameObject grabbedObject, ref string currentPlant, ref GameObject grabbedPlant)
+        public void UseItem(string currentTool, GameObject grabbedTool, ref string currentPlant, ref GameObject grabbedPlant)
         {
             Animator currentAnimator;
             if (Input.GetMouseButtonDown(0))
             {
-                if (grabbedObject != null)
+                if (grabbedTool != null && grabbedPlant == null)
                 {
-                    currentAnimator = grabbedObject.transform.Find(grabbedObject.name).GetComponent<Animator>();
+                    currentAnimator = grabbedTool.transform.Find(grabbedTool.name).GetComponent<Animator>();
                     if (currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState"))
                     {
                         currentAnimator.Play("UseItem");
 
-                        if (currentItem == "Seed Bag")
+                        if (currentTool == "Seed Bag" && grabbedTool.GetComponent<SeedBagManager>().timesUsed < grabbedTool.GetComponent<SeedBagManager>().maxTimesUsed)
                         {
-                            grabbedObject.transform.Find(grabbedObject.name).Find("Seed Particles").GetComponent<ParticleSystem>().Play();
+                            grabbedTool.transform.Find(grabbedTool.name).Find("Seed Particles").GetComponent<ParticleSystem>().Play();
                         }
                     }
                 }
@@ -31,10 +34,10 @@ namespace Main.ItemHandling
 
             if (Input.GetKeyDown(KeyCode.F))
             {
-                if (grabbedPlant != null && currentItem == "Bag")
+                if (grabbedPlant != null && currentTool == "Bag")
                 {
                     currentAnimator = grabbedPlant.transform.Find(grabbedPlant.name).GetComponent<Animator>();
-                    if (currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState"))
+                    if (currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState") && grabbedTool.GetComponent<BagInventory>().isBagOpen == true)
                     {
                         currentAnimator.Play("UsePlant");
                         StartCoroutine(PlantDeposit.DepositPlant());

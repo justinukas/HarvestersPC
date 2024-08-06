@@ -16,6 +16,7 @@ namespace Main.ItemHandling
         {
             bagCollider.enabled = false;
             yield return new WaitForSeconds(0.98f);
+            itemManager.grabbedPlant.transform.parent = null;
             bagCollider.enabled = true;
             
             itemManager.grabbedPlant = null;

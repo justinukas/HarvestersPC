@@ -5,6 +5,7 @@ namespace Main.Farming.SeedBags
     public class SeedBagManager : MonoBehaviour
     { 
         [HideInInspector] public int timesUsed;
+        [HideInInspector] public int maxTimesUsed = 50;
         [HideInInspector] public string bagVariant;
         [HideInInspector] public GameObject tilledDirt;
 
@@ -29,20 +30,24 @@ namespace Main.Farming.SeedBags
             soundHandler = GetComponent<SoundHandler>();
             particleHandler = GetComponent<ParticleHandler>();
 
+            // gets the "Carrot" or "Wheat" part from the gameobject name and assigns it to bagVariant
+            string[] _string = gameObject.name.Split(' ');
+            bagVariant = _string[0];
+
             //renders bag unusable on game start
-            //timesUsed = 50; 
-            //colorHandler.SetColor();
+            timesUsed = maxTimesUsed; 
+            colorHandler.SetColor();
         }
 
         private void Update()
         {
-            raycastHandler.CheckRaycast(ref timesUsed, ref tilledDirt);
+            raycastHandler.CheckRaycast(ref timesUsed, maxTimesUsed, ref tilledDirt);
         }
 
         // initialized by the raycast check above
         public void InitializePlanting()
         {
-            plantInfoHandler.InitializePlantInfo(ref bagVariant, tilledDirt, Wheat, Carrot);
+            plantInfoHandler.InitializePlantInfo(tilledDirt, Wheat, Carrot);
             plantSpawningHandler.SpawnPlants(bagVariant, tilledDirt);
             colorHandler.FadeBagColor();
             soundHandler.PlayPlantingSFX();

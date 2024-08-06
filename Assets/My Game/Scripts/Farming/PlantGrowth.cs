@@ -9,6 +9,7 @@ namespace Main.Farming
     public class PlantGrowth : MonoBehaviour
     {
         [HideInInspector] public float growthRate = 0.01f;
+        private Transform plantParentTransform;
 
         private Dictionary<string, (float MaxHeight, Color? GrownColor, string ChildName)> plantTypes;
         private void Start()
@@ -21,8 +22,8 @@ namespace Main.Farming
         {
             plantTypes = new Dictionary<string, (float MaxHeight, Color? GrownColor, string ChildName)>
             {
-                {"WheatParent", (0.629f, new Color(0.9960784f, 0.9490196f, 0.5707546f), "Wheat(Clone)") },
-                {"CarrotParent", (0.27f, null, "Carrot(Clone)") }
+                {"WheatParent", (0.629f, new Color(0.9960784f, 0.9490196f, 0.5707546f), "Wheat") },
+                {"CarrotParent", (0.27f, null, "Carrot") }
                 // add new plants here
             };
         }
@@ -44,16 +45,19 @@ namespace Main.Farming
 
         private void HandlePlantGrowth(GameObject plantParent, (float MaxHeight, Color? GrownColor, string ChildName) plantType)
         {
-            if (plantParent.transform.position.y < plantType.MaxHeight && plantParent.transform.childCount > 0)
+            plantParentTransform = plantParent.transform;
+            if (plantParentTransform.position.y < plantType.MaxHeight && plantParentTransform.childCount > 0)
             {
-                plantParent.transform.position = new Vector3(plantParent.transform.position.x, plantParent.transform.position.y + Time.deltaTime * growthRate, plantParent.transform.position.z);
+                plantParentTransform.position = plantParentTransform.position + new Vector3(0, Time.deltaTime * growthRate ,0);
             }
-            else if (plantParent.transform.position.y >= plantType.MaxHeight)
+            else if (plantParentTransform.position.y >= plantType.MaxHeight)
             {
-                plantParent.transform.position = new Vector3(plantParent.transform.position.x, plantType.MaxHeight, plantParent.transform.position.z);
+                Vector3 currentPosition = plantParentTransform.position;
+                currentPosition.y = plantType.MaxHeight;
+                plantParentTransform.position = currentPosition;
             }
 
-            if (plantParent.transform.position.y >= plantType.MaxHeight && plantParent.transform.childCount > 0)
+            if (plantParentTransform.position.y >= plantType.MaxHeight && plantParentTransform.childCount > 0)
             {
                 foreach (Transform child in plantParent.transform)
                 {
@@ -64,7 +68,7 @@ namespace Main.Farming
                     }
                 }
             }
-            if (plantParent.transform.childCount == 0) plantParent.transform.position = Vector3.zero;
+            if (plantParentTransform.childCount == 0) plantParentTransform.position = Vector3.zero;
         }
     }
 }

@@ -1,4 +1,3 @@
-using Main.ItemHandling;
 using Main.Bag;
 using UnityEngine;
 
@@ -6,8 +5,7 @@ namespace Main.Farming
 {
     public class WheatHarvest : MonoBehaviour
     {    
-        [SerializeField] BagInventory BagInventory; 
-        [SerializeField] ItemManager ItemManager;
+        [SerializeField] BagInventory BagInventory;
 
         private void OnCollisionEnter(Collision collider)
         {

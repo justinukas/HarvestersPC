@@ -1,32 +1,27 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Main.Farming
+public class PlantingEnabler : MonoBehaviour
 {
-    public class PlantingEnabler : MonoBehaviour
+    public bool plantingAllowed;
+
+    private void Start()
     {
-        
-        public bool plantingAllowed;
+        StartCoroutine(CheckForChildren());
+        plantingAllowed = false;
+    }
 
-        private void Start()
+    private IEnumerator CheckForChildren()
+    {
+        while (enabled)
         {
-            StartCoroutine(CheckForChildren());
-            plantingAllowed = false;
-        }
-
-
-        private IEnumerator CheckForChildren()
-        {
-            while (enabled)
+            if (transform.Find("WheatParent").childCount == 0 && transform.Find("CarrotParent").childCount == 0)
             {
-                if (transform.Find("WheatParent").childCount == 0 && transform.Find("CarrotParent").childCount == 0)
-                {
-                    GetComponent<BoxCollider>().enabled = false;
-                    plantingAllowed = true;
-                    GetComponent<BoxCollider>().enabled = true;
-                }
-                yield return new WaitForSeconds(0.1f);
+                GetComponent<BoxCollider>().enabled = false;
+                plantingAllowed = true;
+                GetComponent<BoxCollider>().enabled = true;
             }
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }

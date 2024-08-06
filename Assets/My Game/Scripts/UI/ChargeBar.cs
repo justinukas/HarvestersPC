@@ -34,6 +34,7 @@ namespace Main.UI
         private void Update()
         {
             FadeInBar();
+            if (ItemManager.grabbedPlant != null) { ResetSlider(); return; }
             FillBar();
             LockBar();
             ThrowBag();
@@ -43,12 +44,12 @@ namespace Main.UI
         // shows bar when the bag is picked up
         private void FadeInBar()
         {
-            if (ItemManager.currentItem == "Bag" && ChargeBarsCanvasGroup.alpha < 1f && isFillLocked == false)
+            if (ItemManager.currentTool == "Bag" && ChargeBarsCanvasGroup.alpha < 1f && isFillLocked == false)
             {
                 ChargeBarsCanvasGroup.alpha += 3f * Time.deltaTime;
             }
             // fix for if it gets softlocked
-            else if (ChargeBarsCanvasGroup.alpha < 1f && Slider.value > 0f && ItemManager.currentItem == "Bag")
+            else if (ChargeBarsCanvasGroup.alpha < 1f && Slider.value > 0f && ItemManager.currentTool == "Bag")
             {
                 ChargeBarsCanvasGroup.alpha = 0f;
                 Slider.value = 0f;
@@ -105,7 +106,8 @@ namespace Main.UI
                     Bag.transform.position = Bag.transform.position + new Vector3(0, 0.314f, 0);
 
                     ItemManager.grabbedTool.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-                    ItemManager.currentItem = "null";
+                    ItemManager.grabbedTool.transform.parent = null;
+                    ItemManager.currentTool = "null";
                     ItemManager.grabbedTool = null;
 
                     float throwingForce = Slider.value * 10f;
@@ -122,10 +124,16 @@ namespace Main.UI
                 ChargeBarsCanvasGroup.alpha -= 3f * Time.deltaTime;
                 if (ChargeBarsCanvasGroup.alpha == 0f)
                 {
-                    Slider.value = 0f;
-                    isFillLocked = false;
+                    ResetSlider();
                 }
             }
+        }
+
+        private void ResetSlider()
+        {
+            isFillLocked = false;
+            Slider.value = 0f;
+            BagAnimator.Play("DefaultState");
         }
     }
 }

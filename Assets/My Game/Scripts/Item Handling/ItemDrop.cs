@@ -4,28 +4,36 @@ namespace Main.ItemHandling
 {
     public class ItemDrop : MonoBehaviour
     {
-        public void DropItem(ref string currentItem, ref GameObject grabbedObject, ref string currentPlant, ref GameObject grabbedPlant)
+        PlantDeposit plantDeposit;
+        private void Start()
+        {
+            plantDeposit = GetComponent<PlantDeposit>();
+        }
+        public void DropItem(ref string currentTool, ref GameObject grabbedTool, ref string currentPlant, ref GameObject grabbedPlant)
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                // if an item and a plant are equipped at the same time, drop the plant first.
-                if (currentItem != "null" && currentPlant != "null")
+                // if an tool and a plant are equipped at the same time, drop the plant first.
+                if (currentTool != "null" && currentPlant != "null")
                 {
                     grabbedPlant.transform.Find(grabbedPlant.name).GetComponent<Animator>().Play("DefaultState");
                     Destroy(grabbedPlant.transform.Find(currentPlant).GetComponent<Animator>());
 
+                    StopCoroutine(plantDeposit.DepositPlant());
                     grabbedPlant.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                    grabbedPlant.transform.parent = null;
                     currentPlant = "null";
                     grabbedPlant = null;
                 }
 
-                else if (currentItem != "null")
+                else if (currentTool != "null")
                 {
-                    grabbedObject.transform.Find(grabbedObject.name).GetComponent<Animator>().Play("DefaultState");
+                    grabbedTool.transform.Find(grabbedTool.name).GetComponent<Animator>().Play("DefaultState");
 
-                    grabbedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-                    currentItem = "null";
-                    grabbedObject = null;
+                    grabbedTool.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                    grabbedTool.transform.parent = null;
+                    currentTool = "null";
+                    grabbedTool = null;
                 }
 
                 else if (currentPlant != "null")
@@ -33,7 +41,9 @@ namespace Main.ItemHandling
                     grabbedPlant.transform.Find(grabbedPlant.name).GetComponent<Animator>().Play("DefaultState");
                     Destroy(grabbedPlant.transform.Find(currentPlant).GetComponent<Animator>());
 
+                    StopCoroutine(plantDeposit.DepositPlant());
                     grabbedPlant.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                    grabbedPlant.transform.parent = null;
                     currentPlant = "null";
                     grabbedPlant = null;
                 }

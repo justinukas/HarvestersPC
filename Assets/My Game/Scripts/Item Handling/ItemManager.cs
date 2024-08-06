@@ -4,7 +4,7 @@ namespace Main.ItemHandling
 {
     public class ItemManager : MonoBehaviour
     {
-        [HideInInspector] public string currentItem = "null";
+        [HideInInspector] public string currentTool = "null";
         [HideInInspector] public string currentPlant = "null";
         [HideInInspector] public GameObject grabbedTool;
         [HideInInspector] public GameObject grabbedPlant;
@@ -26,10 +26,15 @@ namespace Main.ItemHandling
 
         private void Update()
         {
-            itemRaycast.CheckRaycast(ref currentItem, ref grabbedTool, ref currentPlant, ref grabbedPlant);
-            itemPositionAndRotation.UpdateItemPositionAndRotation(currentItem, grabbedTool, currentPlant, grabbedPlant, defaultToolPosition, defaultPlantPosition);
-            itemUse.UseItem(currentItem, grabbedTool, ref currentPlant, ref grabbedPlant);
-            itemDrop.DropItem(ref currentItem, ref grabbedTool, ref currentPlant, ref grabbedPlant);
+            itemRaycast.CheckRaycast(ref currentTool, ref grabbedTool, ref currentPlant, ref grabbedPlant);
+            //itemPositionAndRotation.UpdateItemPositionAndRotation(currentTool, grabbedTool, currentPlant, grabbedPlant, defaultToolPosition, defaultPlantPosition);
+            itemUse.UseItem(currentTool, grabbedTool, ref currentPlant, ref grabbedPlant);
+            itemDrop.DropItem(ref currentTool, ref grabbedTool, ref currentPlant, ref grabbedPlant);
+        }
+
+        public void SetParents()
+        {
+            itemPositionAndRotation.UpdateItemPositionAndRotation(currentTool, grabbedTool, currentPlant, grabbedPlant, defaultToolPosition, defaultPlantPosition);
         }
     }
 }

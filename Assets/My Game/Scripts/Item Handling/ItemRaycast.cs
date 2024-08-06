@@ -1,13 +1,20 @@
 using System.Linq;
 using UnityEngine;
+using Main.Farming;
 
 namespace Main.ItemHandling
 {
     public class ItemRaycast : MonoBehaviour
     {
         [SerializeField] private RuntimeAnimatorController controller;
+        private ItemManager itemManager;
 
-        public void CheckRaycast(ref string currentItem, ref GameObject grabbedTool, ref string currentPlant, ref GameObject grabbedPlant)
+        private void Start()
+        {
+            itemManager = GetComponent<ItemManager>();
+        }
+
+        public void CheckRaycast(ref string currentTool, ref GameObject grabbedTool, ref string currentPlant, ref GameObject grabbedPlant)
         {
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             LayerMask Grabbables = 1 << 6;
@@ -16,7 +23,7 @@ namespace Main.ItemHandling
             {
                 if (Physics.Raycast(ray, out RaycastHit hit, 1.5f, Grabbables))
                 {
-                    if (currentItem == "null")
+                    if (currentTool == "null")
                     {
                         if (ItemNames.itemNames.Contains(hit.collider.gameObject.name))
                         {
@@ -24,15 +31,15 @@ namespace Main.ItemHandling
 
                             grabbedTool = hit.collider.gameObject;
 
-                            if (grabbedTool.name != "Wheat Seed Bag" || grabbedTool.name != "Carrot Seed Bag")
+                            if (grabbedTool.name != "Wheat Seed Bag" && grabbedTool.name != "Carrot Seed Bag")
                             {
-                                currentItem = grabbedTool.name;
+                                currentTool = grabbedTool.name;
                             }
-                            else { currentItem = "Seed Bag"; }
+                            else { currentTool = "Seed Bag"; }
 
                             grabbedTool.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition; // lock rigidbody from moving
 
-                            if (currentItem == "Seed Bag" && grabbedTool.GetComponent<Animator>())
+                            if (currentTool == "Seed Bag" && grabbedTool.GetComponent<Animator>())
                             {
                                 Destroy(grabbedTool.GetComponent<Animator>());
                                 Destroy(grabbedTool.transform.Find("Item particle").gameObject);
@@ -42,20 +49,24 @@ namespace Main.ItemHandling
 
                     if (currentPlant == "null")
                     {
-                        if (ItemNames.plantNames.Contains(hit.collider.gameObject.name))
+                        if (ItemNames.plantNames.Contains(hit.collider.gameObject.name) && hit.collider.gameObject.GetComponent<Harvestability>().isHarvestable == true)
                         {
                             grabbedPlant = hit.collider.gameObject;
 
                             grabbedPlant.transform.SetParent(null);
                             currentPlant = grabbedPlant.name;
 
-                            Animator plantAnimator = grabbedPlant.transform.Find(currentPlant).gameObject.AddComponent<Animator>();
-                            plantAnimator.runtimeAnimatorController = controller;
-
                             grabbedPlant.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+
+                            if (!grabbedPlant.transform.Find(currentPlant).gameObject.GetComponent<Animator>())
+                            {
+                                Animator plantAnimator = grabbedPlant.transform.Find(currentPlant).gameObject.AddComponent<Animator>();
+                                plantAnimator.runtimeAnimatorController = controller;
+                            }
                         }
                     }
                 }
+                itemManager.SetParents();
             }
         }
     }

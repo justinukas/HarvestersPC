@@ -79,9 +79,6 @@ namespace Main.Bag
             {
                 isBagOpen = false;
                 bagMesh.mesh = closedBagMesh;
-                gameObject.tag = "Closed Bag";
-
-                weight = 0f;
             }
         }
 
@@ -90,7 +87,7 @@ namespace Main.Bag
         {
             isBagOpen = true;
             bagMesh.mesh = openBagMesh;
-            gameObject.tag = "Open Bag";
+            weight = 0f;
         }
 
         // reset counters on sale

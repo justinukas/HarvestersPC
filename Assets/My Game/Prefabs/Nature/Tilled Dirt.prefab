@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2834482471552431731}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6375044301001297761}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -73,9 +73,9 @@ GameObject:
   - component: {fileID: 4114103874407426419}
   - component: {fileID: 923239780646968413}
   - component: {fileID: 2865768602950595494}
-  - component: {fileID: 8036431633727094884}
   - component: {fileID: 9048771279011875199}
-  m_Layer: 0
+  - component: {fileID: 8036431633727094884}
+  m_Layer: 9
   m_Name: Tilled Dirt
   m_TagString: TilledDirt
   m_Icon: {fileID: 0}
@@ -90,8 +90,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8708544614371505984}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 118.205, y: 1.357, z: 39.5}
+  m_LocalRotation: {x: -0, y: -0, z: 0.000000014901161, w: 1}
+  m_LocalPosition: {x: 115.5, y: 0, z: 37.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -149,6 +149,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &9048771279011875199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8708544614371505984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a665102a8bbb39499962860fa8f81df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantingAllowed: 0
 --- !u!65 &8036431633727094884
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -168,18 +181,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.1, z: 1}
-  m_Center: {x: 0, y: 0.48, z: 0}
---- !u!114 &9048771279011875199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8708544614371505984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a665102a8bbb39499962860fa8f81df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plantingAllowed: 1
+  m_Size: {x: 1, y: 1.0222244, z: 1}
+  m_Center: {x: 0, y: 0.011112243, z: 0}

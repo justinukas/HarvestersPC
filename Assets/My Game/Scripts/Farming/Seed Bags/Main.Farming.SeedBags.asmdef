@@ -1,6 +1,6 @@
 {
     "name": "Main.Farming.SeedBags",
-    "rootNamespace": "",
+    "rootNamespace": "Main.Farming.SeedBags",
     "references": [
         "GUID:43108cffe4e0ac04e9dd07118d08c533"
     ],

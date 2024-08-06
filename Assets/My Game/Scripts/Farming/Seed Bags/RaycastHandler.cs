@@ -13,7 +13,7 @@ namespace Main.Farming.SeedBags
             seedBagManager = GetComponent<SeedBagManager>();
         }
 
-        public void CheckRaycast(ref int timesUsed, ref GameObject tilledDirt)
+        public void CheckRaycast(ref int timesUsed, int maxTimesUsed, ref GameObject tilledDirt)
         {
             if (animator.GetCurrentAnimatorStateInfo(0).IsName("Plant Seeds") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.6f)
             {
@@ -25,7 +25,7 @@ namespace Main.Farming.SeedBags
                     tilledDirt = hit.collider.gameObject;
                     PlantingEnabler plantingEnabler = tilledDirt.GetComponent<PlantingEnabler>();
 
-                    if (plantingEnabler.plantingAllowed && timesUsed <= 50)
+                    if (plantingEnabler.plantingAllowed && timesUsed < maxTimesUsed)
                     {
                         timesUsed++;
                         seedBagManager.InitializePlanting();
