@@ -127,6 +127,14 @@ namespace Main.UI
                     ResetSlider();
                 }
             }
+            else if (ItemManager.grabbedTool == null)
+            {
+                ChargeBarsCanvasGroup.alpha -= 3f * Time.deltaTime;
+                if (ChargeBarsCanvasGroup.alpha == 0f)
+                {
+                    ResetSlider();
+                }
+            }
         }
 
         private void ResetSlider()
