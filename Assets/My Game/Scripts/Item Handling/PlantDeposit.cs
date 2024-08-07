@@ -16,9 +16,12 @@ namespace Main.ItemHandling
         {
             bagCollider.enabled = false;
             yield return new WaitForSeconds(0.98f);
-            itemManager.grabbedPlant.transform.parent = null;
+
             bagCollider.enabled = true;
-            
+
+            if (itemManager.grabbedPlant == null) yield break;
+
+            itemManager.grabbedPlant.transform.parent = null;
             itemManager.grabbedPlant = null;
             itemManager.currentPlant = "null";
         }
