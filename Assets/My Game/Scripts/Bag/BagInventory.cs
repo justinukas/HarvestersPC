@@ -28,9 +28,12 @@ namespace Main.Bag
 
         [HideInInspector] public bool isBagOpen;
 
+        private BagUI bagUI;
+
 
         private void Start()
         {
+            bagUI = GetComponent<BagUI>();
             bagMesh = gameObject.transform.Find("Bag").Find("Icosphere").GetComponent<MeshFilter>();
             weight = 0;
             isBagOpen = true;
@@ -41,6 +44,9 @@ namespace Main.Bag
         {
             if (isBagOpen && collider.gameObject.CompareTag("Carrot") && collider.gameObject.transform.parent == null)
             {
+                string plant = "Carrot";
+                bagUI.SpawnUI(plant);
+
                 carrotCount += 1;
                 string carrotCounterText = carrotCount.ToString();
 
@@ -58,6 +64,9 @@ namespace Main.Bag
         {
             if (isBagOpen)
             {
+                string plant = "Wheat";
+                bagUI.SpawnUI(plant);
+
                 wheatCount += 1;
 
                 //converts int to string
@@ -90,7 +99,7 @@ namespace Main.Bag
             weight = 0f;
         }
 
-        // reset counters on sale
+        // reset counters and UI on sale
         public void ResetAllCounters()
         {
             OpenBag();
@@ -99,6 +108,8 @@ namespace Main.Bag
             wheatCount = 0;
             carrotCounter.GetComponent<Text>().text = "0";
             wheatCounter.GetComponent<Text>().text = "0";
+
+            bagUI.DisableAllUIElements();
         }
     }
 }
