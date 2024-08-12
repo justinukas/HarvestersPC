@@ -7,11 +7,11 @@ namespace Main.Bag
 {
     public class BagInventory : MonoBehaviour
     {
-        // text gameobjects
+        [Header("Counters")]
         [SerializeField] private GameObject carrotCounter;
         [SerializeField] private GameObject wheatCounter;
 
-        // bag mesh variants
+        [Header("Meshes")]
         [SerializeField] private Mesh closedBagMesh;
         [SerializeField] private Mesh openBagMesh;
 

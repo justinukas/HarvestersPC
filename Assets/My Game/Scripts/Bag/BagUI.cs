@@ -40,8 +40,8 @@ namespace Main.Bag
                     }
 
                     plantCounter.SetActive(true);
-                    plantCounter.GetComponent<RectTransform>().anchoredPosition = new Vector2(plantUICount * 120, plantCounter.GetComponent<RectTransform>().anchoredPosition.y);
-                    InventoryUI.GetComponent<RectTransform>().sizeDelta = new Vector2(160 + 120 * plantUICount, 160);
+                    plantCounter.GetComponent<RectTransform>().anchoredPosition = new Vector2(plantUICount * 160, plantCounter.GetComponent<RectTransform>().anchoredPosition.y);
+                    InventoryUI.GetComponent<RectTransform>().sizeDelta = new Vector2(160 + 160 * plantUICount, 160);
                     plantUICount++;
                 }
             }
