@@ -34,8 +34,6 @@ namespace Main.Bag
                 if (!plantCounter.activeInHierarchy)
                 {
                     plantCounter.SetActive(true);
-                    plantCounter.GetComponent<RectTransform>().anchoredPosition = new Vector2(plantUICount * 160, plantCounter.GetComponent<RectTransform>().anchoredPosition.y);
-                    InventoryUI.GetComponent<RectTransform>().sizeDelta = new Vector2(160 + 160 * plantUICount, 160);
                     plantUICount++;
                 }
             }

@@ -12,7 +12,7 @@ namespace Main.ItemHandling
             PlantDeposit = GetComponent<PlantDeposit>();
 
         }
-        public void UseItem(string currentTool, GameObject grabbedTool, ref string currentPlant, ref GameObject grabbedPlant)
+        public void UseItem(string currentTool, GameObject grabbedTool, ref GameObject grabbedPlant)
         {
             Animator currentAnimator;
             if (Input.GetMouseButtonDown(0))

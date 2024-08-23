@@ -12,6 +12,7 @@ namespace Main.UI
         [SerializeField] private Gradient Gradient;
         [SerializeField] private GameObject Bag;
         [SerializeField] private ItemManager ItemManager;
+        [SerializeField] private ItemDrop itemDrop;
         [SerializeField] private Animator BagAnimator;
         [SerializeField] private Slider Slider;
         [SerializeField] private GameObject Fill;
@@ -105,10 +106,7 @@ namespace Main.UI
                 {
                     Bag.transform.position = Bag.transform.position + new Vector3(0, 0.314f, 0);
 
-                    ItemManager.grabbedTool.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-                    ItemManager.grabbedTool.transform.parent = null;
-                    ItemManager.currentTool = "null";
-                    ItemManager.grabbedTool = null;
+                    itemDrop.DropTool(ref ItemManager.currentTool, ref ItemManager.grabbedTool);
 
                     float throwingForce = Slider.value * 10f;
                     Bag.GetComponent<Rigidbody>().AddForce(MainCamera.forward * throwingForce, ForceMode.VelocityChange);

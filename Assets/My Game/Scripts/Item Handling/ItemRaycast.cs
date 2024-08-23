@@ -7,11 +7,13 @@ namespace Main.ItemHandling
     public class ItemRaycast : MonoBehaviour
     {
         [SerializeField] private RuntimeAnimatorController controller;
+        private Inventory inventory;
         private ItemManager itemManager;
 
         private void Start()
         {
             itemManager = GetComponent<ItemManager>();
+            inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
         }
 
         public void CheckRaycast(ref string currentTool, ref GameObject grabbedTool, ref string currentPlant, ref GameObject grabbedPlant)
@@ -44,6 +46,7 @@ namespace Main.ItemHandling
                                 Destroy(grabbedTool.GetComponent<Animator>());
                                 Destroy(grabbedTool.transform.Find("Item particle").gameObject);
                             }
+                            inventory.AddItemToInventory();
                         }
                     }
 

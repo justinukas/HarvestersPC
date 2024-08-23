@@ -4,8 +4,8 @@ namespace Main.ItemHandling
 {
     public class ItemManager : MonoBehaviour
     {
-        [HideInInspector] public string currentTool = "null";
-        [HideInInspector] public string currentPlant = "null";
+        [HideInInspector] public string currentTool;
+        [HideInInspector] public string currentPlant;
         [HideInInspector] public GameObject grabbedTool;
         [HideInInspector] public GameObject grabbedPlant;
         [SerializeField] public Transform defaultToolPosition;
@@ -28,7 +28,7 @@ namespace Main.ItemHandling
         {
             itemRaycast.CheckRaycast(ref currentTool, ref grabbedTool, ref currentPlant, ref grabbedPlant);
             //itemPositionAndRotation.UpdateItemPositionAndRotation(currentTool, grabbedTool, currentPlant, grabbedPlant, defaultToolPosition, defaultPlantPosition);
-            itemUse.UseItem(currentTool, grabbedTool, ref currentPlant, ref grabbedPlant);
+            itemUse.UseItem(currentTool, grabbedTool, ref grabbedPlant);
             itemDrop.DropItem(ref currentTool, ref grabbedTool, ref currentPlant, ref grabbedPlant);
         }
 
