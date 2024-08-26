@@ -4,8 +4,8 @@ namespace Main.ItemHandling
 {
     public class ItemManager : MonoBehaviour
     {
-        [HideInInspector] public string currentTool;
-        [HideInInspector] public string currentPlant;
+        [HideInInspector] public string currentTool = "null";
+        [HideInInspector] public string currentPlant = "null";
         [HideInInspector] public GameObject grabbedTool;
         [HideInInspector] public GameObject grabbedPlant;
         [SerializeField] public Transform defaultToolPosition;

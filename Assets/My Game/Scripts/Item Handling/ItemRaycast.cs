@@ -25,8 +25,6 @@ namespace Main.ItemHandling
             {
                 if (Physics.Raycast(ray, out RaycastHit hit, 1.5f, Grabbables))
                 {
-                    if (currentTool == "null")
-                    {
                         if (ItemNames.itemNames.Contains(hit.collider.gameObject.name))
                         {
                             if (hit.collider.gameObject.name != "Bag" && currentPlant != "null") return; // makes it so you cant grab a tool thats not a bag while holding a plant
@@ -48,7 +46,6 @@ namespace Main.ItemHandling
                             }
                             inventory.AddItemToInventory();
                         }
-                    }
 
                     if (currentPlant == "null")
                     {

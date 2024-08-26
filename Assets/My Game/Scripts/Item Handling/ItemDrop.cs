@@ -5,6 +5,7 @@ namespace Main.ItemHandling
     public class ItemDrop : MonoBehaviour
     {
         PlantDeposit plantDeposit;
+        [SerializeField] Inventory inventory;
         private void Start()
         {
             plantDeposit = GetComponent<PlantDeposit>();
@@ -40,7 +41,7 @@ namespace Main.ItemHandling
             StopCoroutine(plantDeposit.DepositPlant());
             grabbedPlant.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             grabbedPlant.transform.parent = null;
-            currentPlant = null;
+            currentPlant = "null";
             grabbedPlant = null;
         }
 
@@ -50,8 +51,10 @@ namespace Main.ItemHandling
 
             grabbedTool.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             grabbedTool.transform.parent = null;
-            currentTool = null;
+            currentTool = "null";
             grabbedTool = null;
+
+            inventory.RemoveItemFromSlot();
         }
     }
 }
