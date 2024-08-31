@@ -35,25 +35,43 @@ namespace Main.ItemHandling
 
         private void DropPlant(ref string currentPlant, ref GameObject grabbedPlant)
         {
+            if (grabbedPlant.GetComponent<CapsuleCollider>())
+            {
+                grabbedPlant.GetComponent<CapsuleCollider>().enabled = true;
+            }
+            else if (grabbedPlant.GetComponent<SphereCollider>())
+            {
+                grabbedPlant.GetComponent<SphereCollider>().enabled = true;
+            }
+
+            currentPlant = "null";
             grabbedPlant.transform.Find(grabbedPlant.name).GetComponent<Animator>().Play("DefaultState");
             Destroy(grabbedPlant.transform.Find(currentPlant).GetComponent<Animator>());
 
             StopCoroutine(plantDeposit.DepositPlant());
             grabbedPlant.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             grabbedPlant.transform.parent = null;
-            currentPlant = "null";
             grabbedPlant = null;
         }
 
         public void DropTool(ref string currentTool, ref GameObject grabbedTool)
         {
-            grabbedTool.transform.Find(grabbedTool.name).GetComponent<Animator>().Play("DefaultState");
+            if (grabbedTool.GetComponent<CapsuleCollider>())
+            {
+                grabbedTool.GetComponent<CapsuleCollider>().enabled = true;
+            }
+            else if (grabbedTool.GetComponent<SphereCollider>())
+            {
+                grabbedTool.GetComponent<SphereCollider>().enabled = true;
+            }
 
+            currentTool = "null";
+
+            grabbedTool.transform.Find(grabbedTool.name).GetComponent<Animator>().Play("DefaultState");
             grabbedTool.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             grabbedTool.transform.parent = null;
-            currentTool = "null";
             grabbedTool = null;
-
+            
             inventory.RemoveItemFromSlot();
         }
     }
