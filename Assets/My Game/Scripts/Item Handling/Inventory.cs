@@ -21,11 +21,13 @@ namespace Main.ItemHandling
         [SerializeField] private GameObject ScytheObject;
         [SerializeField] private GameObject AxeObject;
         [SerializeField] private GameObject HoeObject;
+        [SerializeField] private GameObject BagObject;
 
         [Header("Sprites")]
         [SerializeField] private GameObject ScytheSprite;
         [SerializeField] private GameObject AxeSprite;
         [SerializeField] private GameObject HoeSprite;
+        [SerializeField] private GameObject BagSprite;
 
         private void Start()
         {
@@ -118,7 +120,7 @@ namespace Main.ItemHandling
 
         public void AddItemToInventory()
         {
-            if (slotSelected != 10)
+            if (slotSelected != 0)
             {
                 inventoryDict[inventoryDict.Count + 1] = (itemManager.currentTool, itemManager.grabbedTool);
                 (string, GameObject) inventoryDictTuple = inventoryDict[inventoryDict.Count];
