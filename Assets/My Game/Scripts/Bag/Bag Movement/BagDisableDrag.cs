@@ -15,16 +15,16 @@ namespace Main.Bag
         {
             if (collision.gameObject.name != "Selling Hitbox")
             {
-                Rigidbody.drag = 1;
-                Rigidbody.angularDrag = 1;
+                Rigidbody.linearDamping = 1;
+                Rigidbody.angularDamping = 1;
             }
         }
         private void OnCollisionExit(Collision collision)
         {
             if (BagToPlayer.move == false)
             {
-                Rigidbody.drag = 0;
-                Rigidbody.angularDrag = 0;
+                Rigidbody.linearDamping = 0;
+                Rigidbody.angularDamping = 0;
             }
         }
     }
