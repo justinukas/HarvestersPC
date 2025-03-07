@@ -11,9 +11,7 @@ public class LightingManager : MonoBehaviour
     //Variables
     [SerializeField, Range(0, 24)] private float timeOfDay;
 
-    private Color sunColor = new Color(1f, 0.7661839f, 0f);
-    private Color moonColor = new Color(1f, 1f, 1f);
-    private int inverse = 1;
+    
 
 
     private void Update()
@@ -32,6 +30,10 @@ public class LightingManager : MonoBehaviour
     }
 
 
+    //private Color sunColor = new Color(1f, 0.7661839f, 0f);
+    //private Color moonColor = new Color(1f, 1f, 1f);
+    //private int inverse = 1;
+
     private void UpdateLighting(float timePercent)
     {
         RenderSettings.ambientLight = preset.ambientColor.Evaluate(timePercent);
@@ -42,26 +44,27 @@ public class LightingManager : MonoBehaviour
         newSkybox.SetFloat("_HorizonBlend", preset.horizonBlend.Evaluate(timePercent));
         newSkybox.SetFloat("_StarPower", preset.starPower.Evaluate(timePercent));
 
-        /*if (timePercent >= 0.75f || timePercent <= 0.25)
+        
+    /*if (timePercent >= 0.75f || timePercent <= 0.25)
+    {
+        inverse = -1;
+        if (newSkybox.GetColor("_SkylightColor") != moonColor)
         {
-            inverse = -1;
-            if (newSkybox.GetColor("_SkylightColor") != moonColor)
-            {
-                newSkybox.SetColor("_SkylightColor", moonColor);
-            }
+            newSkybox.SetColor("_SkylightColor", moonColor);
         }
-        else 
-        { 
-            inverse = 1;
+    }
+    else 
+    { 
+        inverse = 1;
 
-            if (newSkybox.GetColor("_SkylightColor") != sunColor)
-            {
-                newSkybox.SetColor("_SkylightColor", sunColor);
-            }
+        if (newSkybox.GetColor("_SkylightColor") != sunColor)
+        {
+            newSkybox.SetColor("_SkylightColor", sunColor);
         }
-        newSkybox.SetVector("_MainLightAngle", transform.forward * inverse);*/
+    }
+    newSkybox.SetVector("_MainLightAngle", transform.forward * inverse);*/
 
-        directionalLight.color = preset.directionalColor.Evaluate(timePercent);
+    directionalLight.color = preset.directionalColor.Evaluate(timePercent);
         directionalLight.transform.localRotation = Quaternion.Euler(new Vector3((timePercent * 360f) - 90f, 0, 0));
         housePointLight.intensity = preset.pointLightIntensity.Evaluate(timePercent) * 40;
     }
