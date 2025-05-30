@@ -2,23 +2,25 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    private readonly float gravity = -9.81f;
+    private const float gravity = -9.81f;
+    private const float jumpHeight = 0.5f;
+    private const int playerSpeed = 2;
+
 
     private Vector3 velocity;
-    private int playerSpeed = 2;
-    private float jumpHeight = 0.5f;
     private bool isJumping = false;
     private bool isGrounded;
 
     private void Update()
     {
         MoveCharacterController();
-        Jump();
     }
 
-    public void MoveCharacterController()
+    private void MoveCharacterController()
     {
-        isGrounded = GetComponent<CharacterController>().isGrounded;
+        CharacterController controller = GetComponent<CharacterController>();
+
+        isGrounded = controller.isGrounded;
         if (isGrounded && velocity.y < 0f)
         {
             velocity.y = 0f;
@@ -36,11 +38,8 @@ public class Movement : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
 
-        GetComponent<CharacterController>().Move(velocity * Time.deltaTime + Time.deltaTime * playerSpeed * move);
-    }
+        controller.Move(velocity * Time.deltaTime + Time.deltaTime * playerSpeed * move);
 
-    public void Jump()
-    {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (isJumping != true)
