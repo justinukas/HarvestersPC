@@ -6,8 +6,6 @@ public class Foggy : MonoBehaviour
     [SerializeField] private GameObject directionalLight;
     [SerializeField] private Transform player;
 
-    private bool playerCollided;
-
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.CompareTag("Player"))

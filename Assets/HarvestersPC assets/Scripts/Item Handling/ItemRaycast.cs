@@ -46,7 +46,7 @@ public class ItemRaycast : MonoBehaviour
 
                 if (currentPlant == "null")
                 {
-                    if (ItemNames.plantNames.Contains(hit.collider.gameObject.name) && hit.collider.gameObject.GetComponent<Harvestability>().isHarvestable == true)
+                    if (ItemNames.plantNames.Contains(hit.collider.gameObject.name) /*&& hit.collider.gameObject.GetComponent<Harvestability>().isHarvestable == true*/)
                     {
                         grabbedPlant = hit.collider.gameObject;
 

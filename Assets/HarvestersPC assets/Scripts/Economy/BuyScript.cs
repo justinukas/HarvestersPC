@@ -1,50 +1,46 @@
-using UnityEngine;
-using Main.Farming.SeedBags;
+/*using UnityEngine;
 
-namespace Main.Economy
+public class BuyScript : MonoBehaviour
 {
-    public class BuyScript : MonoBehaviour
+    // get the money stuff
+    [SerializeField] private MoneyCounter MoneyCounter;
+
+    // float numbers for calculating how long the object has been in an area
+    private readonly float requiredStayLength = 4f;
+    private float timeOnEnter;
+    private int price;
+
+    void OnTriggerEnter(Collider collider)
     {
-        // get the money stuff
-        [SerializeField] private MoneyCounter MoneyCounter;
+        timeOnEnter = Time.time;
+    }
 
-        // float numbers for calculating how long the object has been in an area
-        private readonly float requiredStayLength = 4f;
-        private float timeOnEnter;
-        private int price;
-
-        void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
+    {
+        if (collider.gameObject.GetComponent<SeedBagManager>())
         {
-            timeOnEnter = Time.time;
-        }
+            SeedBagManager seedBagManager = collider.gameObject.GetComponent<SeedBagManager>();
+            string BagVariant = seedBagManager.bagVariant;
 
-        void OnTriggerStay(Collider collider)
-        {
-            if (collider.gameObject.GetComponent<SeedBagManager>())
+            switch (BagVariant)
             {
-                SeedBagManager seedBagManager = collider.gameObject.GetComponent<SeedBagManager>();
-                string BagVariant = seedBagManager.bagVariant;
+                case "Carrot":
+                    price = 10;
+                    break;
+                case "Wheat":
+                    price = 15;
+                    break;
+            }
 
-                switch (BagVariant)
-                {
-                    case "Carrot":
-                        price = 10;
-                        break;
-                    case "Wheat":
-                        price = 15;
-                        break;
-                }
+            if (seedBagManager.timesUsed >= 50 && Time.time - timeOnEnter >= requiredStayLength && MoneyCounter.moneyNr >= price)
+            {
+                MoneyCounter.moneyNr -= price;
+                MoneyCounter.UpdateMoneyCount();
 
-                if (seedBagManager.timesUsed >= 50 && Time.time - timeOnEnter >= requiredStayLength && MoneyCounter.moneyNr >= price)
-                {
-                    MoneyCounter.moneyNr -= price;
-                    MoneyCounter.UpdateMoneyCount();
+                BuyingHandler seedBagBuyingHandler = collider.gameObject.GetComponent<BuyingHandler>();
 
-                    BuyingHandler seedBagBuyingHandler = collider.gameObject.GetComponent<BuyingHandler>();
-
-                    seedBagBuyingHandler.BuyBag(ref seedBagManager.timesUsed);
-                }
+                seedBagBuyingHandler.BuyBag(ref seedBagManager.timesUsed);
             }
         }
     }
-}
+}*/

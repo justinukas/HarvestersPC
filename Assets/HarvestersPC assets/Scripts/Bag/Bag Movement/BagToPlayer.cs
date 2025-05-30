@@ -19,7 +19,8 @@ namespace Main.Bag
         private void Start()
         {
             bagRigidbody = GetComponent<Rigidbody>();
-            BagAndHitboxInteractions = FindObjectsOfType<BagAndHitboxInteraction>();
+            //BagAndHitboxInteractions = FindObjectsOfType<BagAndHitboxInteraction>();
+            BagAndHitboxInteractions = FindObjectsByType< BagAndHitboxInteraction>(FindObjectsSortMode.None);
         }
 
         public void StartMoving()

@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 public class WheatHarvest : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class WheatHarvest : MonoBehaviour
             {
                 GameObject wheat = collider.gameObject;
 
-                Destruction destructionScript = wheat.GetComponent<Destruction>();
+                WheatDestruction destructionScript = wheat.GetComponent<WheatDestruction>();
                 Harvestability harvestability = wheat.GetComponent<Harvestability>();
 
                 harvestability.Unparent();
@@ -23,8 +23,9 @@ public class WheatHarvest : MonoBehaviour
                 gameObject.GetComponent<AudioSource>().Play();
 
                 BagInventory.Collection("Wheat");
-                destructionScript.DestroyObject(1f);
+                destructionScript.InvokeWheatDestruction();
             }
         }
     }
 }
+*/
