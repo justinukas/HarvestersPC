@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class KidNamedInv : MonoBehaviour
 {
+    // Item stuff
     [Header("Item Database")]
     [SerializeField] private List<Item> itemDatabase;
 
@@ -14,7 +15,7 @@ public class KidNamedInv : MonoBehaviour
     [SerializeField] private Transform defaultPlantPosition;
 
     [Header("Misc")]
-    [SerializeField] MeshCollider bagCollider;
+    [SerializeField] private MeshCollider bagCollider;
     [SerializeField] private RuntimeAnimatorController controller;
 
     private Item currentToolItem;
@@ -22,6 +23,9 @@ public class KidNamedInv : MonoBehaviour
     private Item currentPlantItem;
     private GameObject grabbedPlant;
 
+
+    // Inventory related stuff
+    [SerializeField] private Transform canvas; // inventory canvas
     private List<Item> inventoryDict = new List<Item>(new Item[10]);
 
     private Dictionary<string, (string, GameObject)> toolsDict;
@@ -30,25 +34,12 @@ public class KidNamedInv : MonoBehaviour
     private int slotSelected;
     private int oldSlotSelected;
 
-    private Transform canvas;
-
-
     private void Update()
     {
-        EquipItem();
+        //EquipItem();
         CheckRaycast();
         UseItem();
-        DropItem();
-    }
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(this);
-    }
-
-    private void Start()
-    {
-        canvas = transform.Find("Canvas");
+        DropInput();
     }
 
     private Item FindItemByName(string name)
@@ -65,166 +56,154 @@ public class KidNamedInv : MonoBehaviour
 
     private void FreezeObject(GameObject obj) => obj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
-    public void CheckRaycast()
+    private void CheckRaycast()
     {
-        if (!Input.GetKeyDown(KeyCode.E)) return;
-
-        Ray ray = new(Camera.main.transform.position, Camera.main.transform.forward);
-        LayerMask Grabbables = 1 << 6;
-
-        if (!Physics.Raycast(ray, out RaycastHit hit, 1.5f, Grabbables)) return;
-
-        GameObject hitObj = hit.collider.gameObject;
-        Item item = FindItemByName(hitObj.name);
-
-        if (item.itemType == ItemType.Tool && currentPlantItem == null)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            currentToolItem = item;
-            grabbedTool = hitObj;
+            Ray ray = new(Camera.main.transform.position, Camera.main.transform.forward);
+            LayerMask Grabbables = 1 << 6;
 
-            FreezeObject(grabbedTool);
+            if (!Physics.Raycast(ray, out RaycastHit hit, 1.5f, Grabbables)) return;
 
-            if (currentToolItem == "Seed Bag" && grabbedTool.GetComponent<Animator>())
+            GameObject hitObj = hit.collider.gameObject;
+            Item item = FindItemByName(hitObj.name);
+
+            if (item.itemType == ItemType.Tool && currentPlantItem == null)
             {
-                Destroy(grabbedTool.GetComponent<Animator>());
-                Destroy(grabbedTool.transform.Find("Item particle").gameObject);
+                currentToolItem = item;
+                grabbedTool = hitObj;
+
+                FreezeObject(grabbedTool);
+
+                if (currentToolItem.itemType == ItemType.Seedbag && grabbedTool.GetComponent<Animator>())
+                {
+                    Destroy(grabbedTool.GetComponent<Animator>());
+                    Destroy(grabbedTool.transform.Find("Item particle").gameObject);
+                }
+                //AddItemToInventory();
+                UpdateItemPositionAndRotation(ref grabbedTool);
             }
-            AddItemToInventory();
-        }
 
-        if (item.itemType == ItemType.Crop && currentPlantItem == "null")
-        {
-            currentPlantItem = item;
-            grabbedPlant = hitObj;
-
-            grabbedPlant.transform.SetParent(null);
-
-            grabbedPlant.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
-
-            if (!grabbedPlant.transform.Find(currentPlant).gameObject.GetComponent<Animator>())
+            if (item.itemType == ItemType.Crop && currentPlantItem == null)
             {
-                Animator plantAnimator = grabbedPlant.transform.Find(currentPlant).gameObject.AddComponent<Animator>();
-                plantAnimator.runtimeAnimatorController = controller;
+                currentPlantItem = item;
+                grabbedPlant = hitObj;
+
+                grabbedPlant.transform.SetParent(null);
+
+                grabbedPlant.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+
+                if (!grabbedPlant.transform.Find(currentPlantItem.itemName).gameObject.GetComponent<Animator>())
+                {
+                    Animator plantAnimator = grabbedPlant.transform.Find(currentPlantItem.itemName).gameObject.AddComponent<Animator>();
+                    plantAnimator.runtimeAnimatorController = controller;
+                }
+                UpdateItemPositionAndRotation(ref grabbedPlant);
             }
         }
-
-        UpdateItemPositionAndRotation();
     }
 
-    public void UseItem()
+    private void UseItem()
     {
-        Animator currentAnimator;
         if (Input.GetMouseButtonDown(0))
         {
             if (grabbedTool != null && grabbedPlant == null)
-            {
-                currentAnimator = grabbedTool.transform.Find(grabbedTool.name).GetComponent<Animator>();
-                if (currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState"))
-                {
-                    currentAnimator.Play("UseItem");
-
-                    if (currentTool == "Seed Bag")
-                    {
-                        SeedBagManager sbagManager = grabbedTool.GetComponent<SeedBagManager>();
-
-                        if (sbagManager.timesUsed < sbagManager.maxTimesUsed)
-                            grabbedTool.transform.Find(grabbedTool.name).Find("Seed Particles").GetComponent<ParticleSystem>().Play();
-                    }
-                }
-            }
+            { UseTool(); }
         }
 
         if (Input.GetKeyDown(KeyCode.F))
+        { UseBag(); }
+    }
+
+    private void UseTool()
+    {
+        Animator animator;
+        animator = grabbedTool.transform.Find(grabbedTool.name).GetComponent<Animator>();
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState"))
         {
-            if (grabbedPlant != null && currentTool == "Bag")
+            animator.Play("UseItem");
+
+            if (currentToolItem.itemType == ItemType.Seedbag)
             {
-                currentAnimator = grabbedPlant.transform.Find(grabbedPlant.name).GetComponent<Animator>();
-                if (currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState") && grabbedTool.GetComponent<BagInventory>().isBagOpen == true)
-                {
-                    currentAnimator.Play("UsePlant");
-                    StartCoroutine(DepositPlant());
-                }
+                SeedBagManager sbagManager = grabbedTool.GetComponent<SeedBagManager>();
+
+                if (sbagManager.timesUsed < sbagManager.maxTimesUsed)
+                { grabbedTool.transform.Find(grabbedTool.name).Find("Seed Particles").GetComponent<ParticleSystem>().Play(); }
             }
         }
     }
 
-    private void UpdateItemPositionAndRotation()
+    private void UseBag()
     {
-        // set rotations
-        if (grabbedTool != null)
+        Animator animator;
+        if (grabbedPlant != null && currentToolItem.itemName == "Bag")
         {
-            Transform toolTran = grabbedTool.transform;
-            toolTran.parent = defaultToolPosition;
-            toolTran.SetPositionAndRotation(defaultToolPosition.position, defaultToolPosition.rotation);
-        }
-
-        if (grabbedPlant != null)
-        {
-            Transform plantTran = grabbedPlant.transform;
-            plantTran.parent = defaultPlantPosition;
-            plantTran.SetPositionAndRotation(defaultPlantPosition.position, defaultPlantPosition.rotation);
+            animator = grabbedPlant.transform.Find(grabbedPlant.name).GetComponent<Animator>();
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("DefaultState") && grabbedTool.GetComponent<BagInventory>().isBagOpen == true)
+            {
+                animator.Play("UsePlant");
+                StartCoroutine(DepositPlant());
+            }
         }
     }
 
-    private void DropItem()
+    private void UpdateItemPositionAndRotation(ref GameObject grabbedObject)
+    {
+        // set rotations
+        Transform objTransform = grabbedObject.transform;
+        objTransform.parent = defaultToolPosition;
+        objTransform.SetPositionAndRotation(defaultToolPosition.position, defaultToolPosition.rotation);
+    }
+
+    private void DropInput()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
             // drop plant first if theres a plant and tool at the same time
-            if (currentPlant != "null")
-            {
-                DropPlant();
-            }
+            if (currentPlantItem != null)
+            { DropItem(ref grabbedPlant, ref currentPlantItem); }
 
-            else if (currentTool != "null")
-            {
-                DropTool();
-            }
+            else if (currentToolItem != null)
+            { DropItem(ref grabbedTool, ref currentToolItem); }
         }
     }
 
-    private void DropPlant()
+    private void DropItem(ref GameObject grabbedObject, ref Item currentItem)
     {
-        if (grabbedPlant.GetComponent<CapsuleCollider>())
+        if (grabbedObject.GetComponent<Collider>())
+        { grabbedPlant.GetComponent<Collider>().enabled = true; }
+
+        grabbedObject.transform.Find(grabbedObject.name).GetComponent<Animator>().Play("DefaultState");
+        if (currentItem.itemType == ItemType.Crop)
         {
-            grabbedPlant.GetComponent<CapsuleCollider>().enabled = true;
-        }
-        else if (grabbedPlant.GetComponent<SphereCollider>())
-        {
-            grabbedPlant.GetComponent<SphereCollider>().enabled = true;
+            Destroy(grabbedObject.transform.Find(currentPlantItem.itemName).GetComponent<Animator>());
+            StopCoroutine(DepositPlant());
         }
 
-        currentPlant = "null";
-        grabbedPlant.transform.Find(grabbedPlant.name).GetComponent<Animator>().Play("DefaultState");
-        Destroy(grabbedPlant.transform.Find(currentPlant).GetComponent<Animator>());
+        currentItem = null;
+        grabbedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        grabbedObject.transform.parent = null;
+        grabbedPlant = null;
 
-        StopCoroutine(DepositPlant());
-        grabbedPlant.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        if (currentItem.itemType == ItemType.Tool || currentItem.itemType == ItemType.Seedbag)
+        { /*RemoveItemFromSlot(); */ }
+    }
+
+    private IEnumerator DepositPlant()
+    {
+        bagCollider.enabled = false;
+        yield return new WaitForSeconds(0.98f);
+
+        bagCollider.enabled = true;
+
+        if (grabbedPlant == null) yield break;
+
         grabbedPlant.transform.parent = null;
         grabbedPlant = null;
+        currentPlantItem = null;
     }
 
-    public void DropTool()
-    {
-        if (grabbedTool.GetComponent<CapsuleCollider>())
-        {
-            grabbedTool.GetComponent<CapsuleCollider>().enabled = true;
-        }
-        else if (grabbedTool.GetComponent<SphereCollider>())
-        {
-            grabbedTool.GetComponent<SphereCollider>().enabled = true;
-        }
-
-        currentTool = "null";
-
-        grabbedTool.transform.Find(grabbedTool.name).GetComponent<Animator>().Play("DefaultState");
-        grabbedTool.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        grabbedTool.transform.parent = null;
-        grabbedTool = null;
-
-        RemoveItemFromSlot();
-    }
-
+    /*
     private void EquipItem()
     {
         for (int i = 0; i <= 9; i++)
@@ -277,7 +256,7 @@ public class KidNamedInv : MonoBehaviour
 
             // dupe
             GameObject newTool = Instantiate(inventoryDictTuple.Item2);
-            newTool.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+            FreezeObject(newTool);
             newTool.name = inventoryDictTuple.Item1;
 
             currentTool = inventoryDictTuple.Item1;
@@ -339,19 +318,5 @@ public class KidNamedInv : MonoBehaviour
         selectedSlot.GetComponent<Image>().color = new Color(0.3686275f, 0.5803922f, 0.6313726f);
         selectedSlot.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
         selectedSlot.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
-    }
-
-    public IEnumerator DepositPlant()
-    {
-        bagCollider.enabled = false;
-        yield return new WaitForSeconds(0.98f);
-
-        bagCollider.enabled = true;
-
-        if (grabbedPlant == null) yield break;
-
-        grabbedPlant.transform.parent = null;
-        grabbedPlant = null;
-        currentPlant = "null";
-    }
+    }*/
 }
